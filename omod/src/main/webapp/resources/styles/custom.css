@@ -44,7 +44,11 @@
 
 .light-text {
     color: #bd24a3;
-    color: #adadad;
+    color: #484141;
+}
+
+a {
+    color: #363463 !important;
 }
 
 thead .shaded-table {
@@ -264,7 +268,7 @@ vertical-align: middle;
 }
 
 .card-body a {
-    color: #6c757d !important;
+    color: #000 !important;
     text-decoration: none;
 }
 

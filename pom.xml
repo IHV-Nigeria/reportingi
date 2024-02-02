@@ -10,7 +10,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>nmrsreports</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.4-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Nmrsreports</name>
 	<description>This module provides the following reports</description>
@@ -22,8 +22,20 @@
 		<developerConnection>scm:git:git@github.com:openmrs/openmrs-module-nmrsreports.git</developerConnection>
 		<url>https://github.com/openmrs/openmrs-module-nmrsreports/</url>
 	</scm>
-
-	<modules>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <modules>
 		<module>api</module>
 		<module>omod</module>
 	</modules>

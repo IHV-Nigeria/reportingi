@@ -1,0 +1,57 @@
+<org.openmrs.module.reporting.dataset.definition.SqlDataSetDefinition id="1" uuid="12abf1a0-c66e-44de-9529-8ab91fc831c2" retired="false">
+  <name>NCD</name>
+  <description>For noncommunicable diseases reporting</description>
+  <creator id="2" uuid="4cf418c2-2dff-41e8-87ec-a6a3f2ab8da5"/>
+  <dateCreated id="3">2023-07-14 05:34:01 UTC</dateCreated>
+  <changedBy id="4" uuid="1658873e-8ada-47ca-9694-381b9a6fd776"/>
+  <dateChanged id="5">2023-08-11 11:54:55 UTC</dateChanged>
+  <parameters id="6">
+    <org.openmrs.module.reporting.evaluation.parameter.Parameter id="7">
+      <name>startDate</name>
+      <label>Start Date</label>
+      <type>java.util.Date</type>
+      <required>true</required>
+    </org.openmrs.module.reporting.evaluation.parameter.Parameter>
+    <org.openmrs.module.reporting.evaluation.parameter.Parameter id="8">
+      <name>endDate</name>
+      <label>End Date</label>
+      <type>java.util.Date</type>
+      <required>true</required>
+    </org.openmrs.module.reporting.evaluation.parameter.Parameter>
+  </parameters>
+  <id>259</id>
+  <sqlQuery>SELECT a.patient_id AS &apos;PATIENT ID&apos;,  a.patient_identifier AS &apos;PATIENT IDENTIFIER&apos;, &#xd;
+CASE WHEN a.gender = &apos;M&apos; THEN &apos;MALE&apos; WHEN  a.gender = &apos;F&apos; THEN &apos;FEMALE&apos; ELSE &apos;&apos; END AS &apos;GENDER&apos;,&#xd;
+a.phone_number AS &apos;PHONE NUMBER&apos;,&#xd;
+a.patient_name AS &apos;PATIENT NAME&apos;,&#xd;
+a.family_name AS &apos;FAMILY NAME&apos;,&#xd;
+a.age AS &apos;AGE&apos;,&#xd;
+(SELECT name FROM address_hierarchy_entry WHERE level_id=2 AND user_generated_id=(SELECT property_value FROM global_property WHERE property=&apos;partner_reporting_state&apos;)) AS &apos;STATE&apos;,&#xd;
+(SELECT name FROM address_hierarchy_entry WHERE level_id=3 AND user_generated_id=(SELECT property_value FROM global_property WHERE property=&apos;partner_reporting_lga_code&apos;)) AS &apos;LGA&apos;,&#xd;
+(SELECT property_value FROM global_property WHERE property=&apos;facility_name&apos;) AS &apos;FACILITY NAME&apos;,&#xd;
+(SELECT property_value FROM global_property WHERE property=&apos;facility_datim_code&apos;) AS &apos;FACILITY DATIM CODE&apos;,&#xd;
+b.service_area_name AS &apos;SERVICE AREA NAME&apos;,&#xd;
+a.hiv_score AS &apos;RISK ASSESSMENT SCORE&apos;,&#xd;
+CASE WHEN a.ncd_hypertensive = 1 THEN &apos;YES&apos; WHEN  a.ncd_hypertensive = 0 THEN &apos;NO&apos; ELSE &apos;&apos; END AS &apos;HYPERTENSIVE&apos;,&#xd;
+CASE WHEN a.ncd_htn_medication = 1 THEN &apos;YES&apos; WHEN  a.ncd_htn_medication = 0 THEN &apos;NO&apos; ELSE &apos;&apos; END AS &apos;MEDICATION FOR HTN&apos;,&#xd;
+a.ncd_bp_upper AS &apos;LATEST BP UPPER&apos;,&#xd;
+a.ncd_bp_lower AS &apos;LATEST BP LOWER&apos;,&#xd;
+CASE WHEN a.ncd_diabetic = 1 THEN &apos;YES&apos; WHEN  a.ncd_diabetic = 0 THEN &apos;NO&apos; ELSE &apos;&apos; END AS &apos;DIABETIC&apos;,&#xd;
+CASE WHEN a.ncd_dm_medication = 1 THEN &apos;YES&apos; WHEN  a.ncd_dm_medication = 0 THEN &apos;NO&apos; ELSE &apos;&apos; END AS &apos;MEDICATION FOR DM&apos;,&#xd;
+a.ncd_rbs AS &apos;LATEST RBS&apos;,&#xd;
+a.bmi_weight AS &apos;BMI WEIGHT&apos;,&#xd;
+a.bmi_height AS &apos;BMI HEIGHT&apos;,&#xd;
+a.bmi_value AS &apos;BMI&apos;,&#xd;
+a.bmi_remark AS &apos;BMI RANGE&apos;,&#xd;
+a.ncd_score AS &apos;NCD SCREENING SCORE&apos;,&#xd;
+CASE WHEN (SELECT COUNT(patient_id) FROM encounter WHERE encounter_type=14 AND patient_id=a.patient_id) &gt;= 1 THEN &apos;POSITIVE&apos; ELSE &apos;NEGATIVE&apos; END AS &apos;HIV STATUS&apos;,&#xd;
+CASE WHEN (SELECT COUNT(patient_id) FROM encounter WHERE encounter_type=25 AND patient_id=a.patient_id) &gt;= 1 THEN &apos;YES&apos; ELSE &apos;NO&apos; END AS &apos;ART STATUS&apos;,&#xd;
+CASE WHEN a.hiv_test = 1 THEN &apos;ELIGIBLE&apos; WHEN  a.hiv_test = 0 THEN &apos;NOT ELIGIBLE&apos; ELSE &apos;&apos; END AS &apos;HIV OUTCOME&apos;,&#xd;
+CASE WHEN a.ncd_test = 1 THEN &apos;ELIGIBLE&apos; WHEN  a.ncd_test = 0 THEN &apos;NOT ELIGIBLE&apos; ELSE &apos;&apos; END AS &apos;NCD OUTCOME&apos;,&#xd;
+a.encounter_date AS &apos;ENCOUNTER DATE&apos;,&#xd;
+a.date_created AS &apos;DATE CREATED&apos;&#xd;
+FROM integrator_client_intake a&#xd;
+INNER JOIN integrator_service_area b&#xd;
+ON a.service_area_id=b.service_area_id&#xd;
+WHERE a.date_created BETWEEN :startDate AND :endDate;</sqlQuery>
+</org.openmrs.module.reporting.dataset.definition.SqlDataSetDefinition>

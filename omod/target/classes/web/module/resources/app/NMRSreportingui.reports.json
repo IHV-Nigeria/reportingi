@@ -29,11 +29,11 @@
 },
             
            {
-                "id": "RADET",
+                "id": "ARTLinelist",
                 "extensionPointId": "org.openmrs.module.reportingui.reports.monitoring",
                 "type": "link",
                 "label": "ART Line List",
-                "url": "reportingui/runReport.page?reportDefinition=45af899b-f6d2-4a46-b89a-e6b5696dd7de",
+                "url": "reportingui/runReport.page?reportDefinition=786688c2-2f13-481b-9459-99dd7e2f6899",
                 "order": 1,
                 "requiredPrivilege": "App: reportingui.reports"
             },
@@ -174,15 +174,6 @@
                 "order": 17,
                 "requiredPrivilege": "App: reportingui.reports"
             },
-            {
-                "id": "OTZ Line List",
-                "extensionPointId": "org.openmrs.module.reportingui.reports.monitoring",
-                "type": "link",
-                "label": "OTZ Line List",
-                "url": "reportingui/runReport.page?reportDefinition=cbc1c600-0535-4158-9101-c31ffb4a5ead",
-                "order": 18,
-                "requiredPrivilege": "App: reportingui.reports"
-            },
            {
                 "id": "Regimen Analysis by Active Patients",
                 "extensionPointId": "org.openmrs.module.reportingui.reports.monitoring",
@@ -239,7 +230,37 @@
                 "url": "reportingui/runReport.page?reportDefinition=714d99ef-7c4d-4b50-8e92-5fc00e8b0ab5",
                 "order": 24,
                 "requiredPrivilege": "App: reportingui.reports"
-            }
+            },
+           
+             {
+                  "id": "OTZ Reporting Monthly",
+                  "extensionPointId": "org.openmrs.module.reportingui.reports.monitoring",
+                  "type": "link",
+                  "label": "OTZ Monthly Report",
+                  "url": "dataquality/otzreportsummary.page",
+                  "order": 25,
+                  "requiredPrivilege": "App: reportingui.reports"
+              },
+           
+             {
+                  "id": "NCD Line List",
+                  "extensionPointId": "org.openmrs.module.reportingui.reports.monitoring",
+                  "type": "link",
+                  "label": "NCD Line List",
+                  "url": "reportingui/runReport.page?reportDefinition=827ece1f-98f9-4d58-9a0a-9a013f41cb25",
+                  "order": 26,
+                  "requiredPrivilege": "App: reportingui.reports"
+              },
+           
+             {
+                  "id": "CTDLinelist",
+                  "extensionPointId": "org.openmrs.module.reportingui.reports.monitoring",
+                  "type": "link",
+                  "label": "Client Verification Linelist",
+                  "url": "reportingui/runReport.page?reportDefinition=b2f5693e-e326-47de-a1a7-d24eed174ef1",
+                  "order": 27,
+                  "requiredPrivilege": "App: reportingui.reports"
+              }
 
 
 

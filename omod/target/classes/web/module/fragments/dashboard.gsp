@@ -30,7 +30,7 @@
 
                                     <div class="widget-block" style="margin-top: -10px;">
                                         <h4 class="widget-title purple" style="font-size: 0.9rem;">
-                                            Total Patients
+                                            Total Enrolled
                                         </h4>
                                         <span class="widget-stat purple " id="totalPatients">
                                             ...

@@ -4,12 +4,12 @@
 	
 	<!-- Base Module Properties -->
 	<id>nmrsreports</id>
-	<name>NMRS Report Module</name>
-	<version>1.0.2-SNAPSHOT</version>
+	<name>Nmrsreports</name>
+	<version>1.0.4-SNAPSHOT</version>
 	<package>org.openmrs.module.nmrsreports</package>
 	<author>OluwaseunTemiye</author>
 	<description>
-			This module will install everything that has to do with NMRS
+			This module provides the following reports
 	</description>
 
 	<activator>org.openmrs.module.nmrsreports.NmrsreportsActivator</activator>
@@ -20,16 +20,16 @@
 	<require_version>1.11.6</require_version>
 
 	<require_modules>
-		<require_module version="2.9">
+		<require_module version="${appframeworkVersion}">
 			org.openmrs.module.appframework
 		</require_module>
-		<require_module version="3.9">
+		<require_module version="${uiframeworkVersion}">
 			org.openmrs.module.uiframework
 		</require_module>
-		<require_module version="2.1">
+		<require_module version="${uicommonsModuleVersion}">
 			org.openmrs.module.uicommons
 		</require_module>
-		<require_module version="1.7">
+		<require_module version="${appuiVersion}">
 			org.openmrs.module.appui
 		</require_module>
 		<require_module version="${reportingModuleVersion}">org.openmrs.module.reporting</require_module>

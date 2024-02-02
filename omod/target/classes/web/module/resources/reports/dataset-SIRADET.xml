@@ -1,18 +1,18 @@
 <org.openmrs.module.reporting.dataset.definition.SqlDataSetDefinition id="1" uuid="6462dd79-d0bf-4686-97d1-fa29ad2ae03d" retired="false">
-  <name>SI-RADET</name>
-  <description>Export of the RADET dataset</description>
+  <name>ART - LINELIST</name>
+  <description>Export of the ART - LINELIST dataset</description>
   <creator id="2" uuid="1c3db49d-440a-11e6-a65c-00e04c680037"/>
   <dateCreated id="3">2019-07-08 23:21:26 UTC</dateCreated>
-  <changedBy reference="2"/>
-  <dateChanged id="4">2022-06-06 00:59:02 UTC</dateChanged>
-  <parameters id="5">
-    <org.openmrs.module.reporting.evaluation.parameter.Parameter id="6">
+  <changedBy id="4" uuid="1658873e-8ada-47ca-9694-381b9a6fd776"/>
+  <dateChanged id="5">2023-08-11 12:26:32 UTC</dateChanged>
+  <parameters id="6">
+    <org.openmrs.module.reporting.evaluation.parameter.Parameter id="7">
       <name>startDate</name>
       <label>Start Date</label>
       <type>java.util.Date</type>
       <required>true</required>
     </org.openmrs.module.reporting.evaluation.parameter.Parameter>
-    <org.openmrs.module.reporting.evaluation.parameter.Parameter id="7">
+    <org.openmrs.module.reporting.evaluation.parameter.Parameter id="8">
       <name>endDate</name>
       <label>End Date</label>
       <type>java.util.Date</type>
@@ -36,6 +36,8 @@ MAX(IF(obs.concept_id=159599,IF(TIMESTAMPDIFF(YEAR,person.birthdate,obs.value_da
 &#xd;
 MAX(IF(obs.concept_id=160540,cn1.name,null)) as CareEntryPoint,&#xd;
 &#xd;
+MAX(IF(obs.concept_id=160554,obs.value_datetime, NULL)) as  `HIVConfirmedDate`,&#xd;
+&#xd;
 getcodedvalueobsid(getmaxconceptobsidwithformid(patient.patient_id,166369,23,:endDate)) as `KPType`,&#xd;
 &#xd;
 TIMESTAMPDIFF(MONTH,getdatevalueobsid(getmaxconceptobsid(patient.patient_id,159599,:endDate)),getobsdatetime(getmaxconceptobsidwithformid(patient.patient_id,162240,27,:endDate))) as MonthsOnART,&#xd;
@@ -50,6 +52,8 @@ DATE_FORMAT(getdatevalueobsid(getmaxconceptobsid(patient.patient_id,159599,:endD
 DATE_FORMAT(getobsdatetime(getmaxconceptobsidwithformid(patient.patient_id,162240,27,:endDate)),&apos;%d-%b-%Y&apos;) as `LastPickupDate`,&#xd;
 &#xd;
 DATE_FORMAT(getencounterdate(getlastvisitdate(patient.patient_id,:endDate)),&apos;%d-%b-%Y&apos;) as LastVisitDate,&#xd;
+&#xd;
+																																  &#xd;
 &#xd;
 getconceptval(getmaxconceptobsidwithformid(patient.patient_id,162240,27,:endDate),159368,patient.patient_id) as `DaysOfARVRefil`,&#xd;
 &#xd;
@@ -218,12 +222,14 @@ IFNULL (getcodedvalueobsid(getmaxconceptobsidwithformid(patient.patient_id,16547
 getobsdatetime(getmaxconceptobsidwithformid(patient.patient_id,162240,27,:endDate)),&#xd;
 getconceptval(getmaxconceptobsidwithformid(patient.patient_id,162240,27,:endDate),159368,patient.patient_id) ,&#xd;
 28,&#xd;
-getnumericvalueobsid(getobswithencounterid(getencounterid(getmaxconceptobsidwithformid(patient.patient_id,162240,27,:endDate)),166406)),&#xd;
+IFNULL(gettextvalueobsid(getmaxconceptobsidwithformid(patient.patient_id,166406,27,:endDate)),0),&#xd;
 getconceptvalobsid(getmaxconceptobsidwithformid(patient.patient_id,162240,27,:endDate),165723,patient.patient_id),&#xd;
 &#xd;
 IF(:endDate IS NULL or :endDate = &apos;&apos;, CURDATE(),:endDate)&#xd;
 &#xd;
-))  as `CurrentARTStatusWithPillBalance`&#xd;
+))  as `CurrentARTStatusWithPillBalance`,&#xd;
+DATE_FORMAT(bvinfo.RecaptureDate,&apos;%d-%b-%Y&apos;) as RecaptureDate,&#xd;
+bvinfo.recapture_count as RecaptureCount&#xd;
 &#xd;
 &#xd;
 &#xd;
@@ -246,7 +252,7 @@ obs.concept_id,&#xd;
  MAX(obs.obs_datetime) as last_date, &#xd;
 MIN(obs.obs_datetime) as first_date&#xd;
 from obs INNER JOIN encounter on(encounter.encounter_id=obs.encounter_id) where encounter.form_id!=48 and obs.voided=0 and obs.obs_datetime&lt;=:endDate and concept_id in(159599,165708,159368,164506,164513,164507,164514,165702,165703,165050,&#xd;
-856,164980,165470,159635,5089,165988,1659,164852,166096,1113,159431,162240,165242,165724,166156,166158,165727,164982,165414,5596,165775,160540,165469,5096,1427,160642,160534) GROUP BY obs.person_id, obs.concept_id) as sinner on (sinner.person_id=patient.patient_id and patient.voided=0)&#xd;
+856,164980,165470,159635,5089,165988,1659,164852,166096,1113,159431,162240,165242,165724,166156,166158,165727,164982,165414,5596,165775,160540,165469,5096,1427,160642,160534,160554) GROUP BY obs.person_id, obs.concept_id) as sinner on (sinner.person_id=patient.patient_id and patient.voided=0)&#xd;
 INNER JOIN obs on(obs.person_id=patient.patient_id and obs.concept_id=sinner.concept_id and obs.obs_datetime=sinner.last_date and obs.voided=0 and obs.obs_datetime&lt;=:endDate)&#xd;
 INNER JOIN obs obs2 on(obs2.person_id=patient.patient_id and obs2.concept_id=sinner.concept_id and obs2.obs_datetime=sinner.first_date and obs2.voided=0 and obs2.obs_datetime&lt;=:endDate)&#xd;
 LEFT join encounter enc on(enc.encounter_id=obs.encounter_id and enc.voided=0 and obs.voided=0)&#xd;
@@ -276,6 +282,9 @@ MAX(encounter.encounter_datetime) as last_visit_date&#xd;
 from encounter&#xd;
 where encounter.voided=0 and encounter.form_id!=13 and encounter.encounter_datetime&lt;=:endDate GROUP BY  encounter.patient_id&#xd;
 ) as enc_last on(enc_last.patient_id=patient.patient_id and patient.voided=0)&#xd;
+LEFT JOIN (SELECT patient_Id, MAX(date_created) AS RecaptureDate, recapture_count, count(fingerPosition) as NumberOfFingers, MIN(imageQuality) as LowestFPQuality, CEILING(AVG(imageQuality)) as AverageFPQuality, COUNT(IF(imageQuality&lt;80, 1, NULL)) as FPLowQuality, COUNT(IF(imageQuality&lt;80, NULL, 1)) as FPHighQuality&#xd;
+FROM biometricverificationinfo &#xd;
+GROUP BY patient_Id) as bvinfo on(patient.patient_id=bvinfo.patient_Id)&#xd;
 WHERE patient.voided=0 and pid1.identifier IS NOT NULL&#xd;
 GROUP BY patient.patient_id ;&#xd;
 </sqlQuery>

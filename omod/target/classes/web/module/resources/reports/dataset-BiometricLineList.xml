@@ -2,9 +2,9 @@
   <name>BiometricLineList</name>
   <description>Line list of all patients with biometric data capture</description>
   <creator id="2" uuid="A4F30A1B-5EB9-11DF-A648-37A07F9C90FB"/>
-  <dateCreated id="3">2021-06-22 04:29:07 UTC</dateCreated>
-  <changedBy id="4" uuid="1c3db49d-440a-11e6-a65c-00e04c680037"/>
-  <dateChanged id="5">2021-06-28 00:59:45 UTC</dateChanged>
+  <dateCreated id="3">2021-09-23 14:25:48 UTC</dateCreated>
+  <changedBy id="4" uuid="1658873e-8ada-47ca-9694-381b9a6fd776"/>
+  <dateChanged id="5">2023-07-13 18:22:28 UTC</dateChanged>
   <parameters id="6">
     <org.openmrs.module.reporting.evaluation.parameter.Parameter id="7">
       <name>startDate</name>
@@ -19,8 +19,12 @@
       <required>true</required>
     </org.openmrs.module.reporting.evaluation.parameter.Parameter>
   </parameters>
-  <id>243</id>
-  <sqlQuery>select &#xd;
+  <id>252</id>
+  <sqlQuery>SELECT &#xd;
+(SELECT `name` FROM `address_hierarchy_entry` WHERE `level_id`=2 AND `user_generated_id` =&#xd;
+(SELECT property_value FROM global_property WHERE property=&apos;partner_reporting_state&apos; )) AS State,&#xd;
+gp1.property_value as DatimCode,&#xd;
+gp2.property_value as FacilityName,&#xd;
 patient.patient_id,&#xd;
 person.gender as Sex,&#xd;
 DATE_FORMAT(person.birthdate,&apos;%d-%b-%Y&apos;) as DOB,&#xd;
@@ -31,7 +35,19 @@ IF(hasbiometric.patient_Id IS NOT NULL,&#xd;
 &#xd;
 IF(invalidbio.patient_Id IS NOT NULL,&quot;No&quot;,&quot;Yes&quot;)&#xd;
 ,&quot;&quot;) as ValidBiometric,&#xd;
-DATE_FORMAT(hasbiometric.date_created,&apos;%d-%b-%Y&apos;) as DateCreated&#xd;
+DATE_FORMAT(hasbiometric.date_created,&apos;%d-%b-%Y&apos;) as DateCreated,&#xd;
+e1.LastCareCardDate,&#xd;
+e1.LastLabOrderFormDate,&#xd;
+e1.LastPharmacyDate,&#xd;
+DATE_FORMAT(b.RecaptureDate,&apos;%d-%b-%Y&apos;) as RecaptureDate,&#xd;
+b.recapture_count as RecaptureCount,&#xd;
+b.NumberOfFingers as NumberOfFingers,&#xd;
+b.FPLowQuality as FPLowQuality,&#xd;
+b.FPHighQuality as FPHighQuality,&#xd;
+b.AverageFPQuality as AverageFPQuality,&#xd;
+b.LowestFPQuality as LowestFPQuality&#xd;
+&#xd;
+&#xd;
 from &#xd;
 patient LEFT JOIN person on(person.person_id=patient.patient_id and person.voided=0)&#xd;
 LEFT JOIN patient_identifier pid1 on(pid1.patient_id=patient.patient_id and pid1.identifier_type=4 and pid1.voided=0)&#xd;
@@ -52,12 +68,20 @@ where &#xd;
 template not like &apos;Rk1S%&apos;&#xd;
    OR&#xd;
 CONVERT(new_template using utf8) not like &apos;Rk1S%&apos; GROUP BY patient_Id) as invalidbio on(patient.patient_id=invalidbio.patient_Id)&#xd;
+LEFT JOIN (SELECT patient_Id, MAX(date_created) AS RecaptureDate, recapture_count, count(fingerPosition) as NumberOfFingers, MIN(imageQuality) as LowestFPQuality, CEILING(AVG(imageQuality)) as AverageFPQuality, COUNT(IF(imageQuality&lt;80, 1, NULL)) as FPLowQuality, COUNT(IF(imageQuality&lt;80, NULL, 1)) as FPHighQuality&#xd;
+FROM biometricverificationinfo &#xd;
+GROUP BY patient_Id) as b on(patient.patient_id=b.patient_Id)&#xd;
 &#xd;
-where hasbiometric.date_created BETWEEN :startDate and :endDate&#xd;
-ORDER BY patient.patient_id&#xd;
+LEFT JOIN (SELECT &#xd;
+patient_id, &#xd;
+form_id,&#xd;
+DATE_FORMAT(MAX(CASE WHEN encounter.form_id = 14 THEN encounter.encounter_datetime END), &apos;%d-%b-%Y&apos;) AS LastCareCardDate,&#xd;
+DATE_FORMAT(MAX(CASE WHEN encounter.form_id = 21 THEN encounter.encounter_datetime END), &apos;%d-%b-%Y&apos;) AS LastLabOrderFormDate,&#xd;
+DATE_FORMAT(MAX(CASE WHEN encounter.form_id = 27 THEN encounter.encounter_datetime END), &apos;%d-%b-%Y&apos;) AS LastPharmacyDate&#xd;
+FROM encounter where form_id in (27,14,21) and voided=0 GROUP BY patient_id) as e1 on (e1.patient_id = patient.patient_id)&#xd;
+LEFT JOIN global_property gp1 on(gp1.property=&apos;facility_datim_code&apos;)&#xd;
+LEFT JOIN global_property gp2 on(gp2.property=&apos;Facility_Name&apos;)&#xd;
 &#xd;
-&#xd;
-&#xd;
-&#xd;
-</sqlQuery>
+where hasbiometric.date_created &lt;= :endDate&#xd;
+ORDER BY patient.patient_id</sqlQuery>
 </org.openmrs.module.reporting.dataset.definition.SqlDataSetDefinition>

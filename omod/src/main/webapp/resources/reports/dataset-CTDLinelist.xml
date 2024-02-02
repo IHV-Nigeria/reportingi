@@ -1,0 +1,74 @@
+<org.openmrs.module.reporting.dataset.definition.SqlDataSetDefinition id="1" uuid="52ff250a-dffe-4ce0-abbd-24c25b7a8c50" retired="false">
+  <name>CTDLinelist</name>
+  <description>Export of the Client Tracking &amp; Discontinuation set</description>
+  <creator id="2" uuid="1c3db49d-440a-11e6-a65c-00e04c680037"/>
+  <dateCreated id="3">2023-12-29 14:16:36 UTC</dateCreated>
+  <changedBy reference="2"/>
+  <dateChanged id="4">2023-12-29 14:36:04 UTC</dateChanged>
+  <parameters id="5">
+    <org.openmrs.module.reporting.evaluation.parameter.Parameter id="6">
+      <name>startDate</name>
+      <label>Start Date</label>
+      <type>java.util.Date</type>
+      <required>true</required>
+    </org.openmrs.module.reporting.evaluation.parameter.Parameter>
+    <org.openmrs.module.reporting.evaluation.parameter.Parameter id="7">
+      <name>endDate</name>
+      <label>End Date</label>
+      <type>java.util.Date</type>
+      <required>true</required>
+    </org.openmrs.module.reporting.evaluation.parameter.Parameter>
+  </parameters>
+  <id>269</id>
+  <sqlQuery>SELECT&#xd;
+&#xd;
+nigeria_datimcode_mapping.state_name as `State`,&#xd;
+nigeria_datimcode_mapping.lga_name as `LGA`,&#xd;
+gp2.property_value as `Facilty Name`,&#xd;
+gp1.property_value as `DATIM Code`,&#xd;
+pid2.identifier as  `Hospital No`,&#xd;
+pid1.identifier as `Patient ID`, &#xd;
+&#xd;
+DATE_FORMAT(encounter.encounter_datetime, &apos;%e %M %Y&apos;) as `Date of Tracking`,&#xd;
+MAX(IF(obs.concept_id=165460,cn1.name, null)) as `Reason for Tracking`,&#xd;
+-- MAX(IF(obs.concept_id=161135,obs.value_text, null)) as `Guardian / Treatment Partner&apos;s Name`,&#xd;
+-- MAX(IF(obs.concept_id=160641,obs.value_text, null)) as `Guardian / Treatment Partner&apos;s Contact Address`,&#xd;
+-- MAX(IF(obs.concept_id=159635,obs.value_text, null)) as `Guardian / Treatment Partner&apos;s Phone Number`,&#xd;
+MAX(IF(obs.concept_id=165461,obs.value_datetime, null)) as `Date of Last Actual Contact/ Appointment`,&#xd;
+MAX(IF(obs.concept_id=165778,obs.value_datetime, null)) as `Date of Missed Scheduled Appointment`,&#xd;
+MAX(IF(obs.concept_id=167221,cn1.name, null)) as `Client Verification`,&#xd;
+MAX(IF(obs.concept_id=167222,cn1.name, null)) as `Indication for Client Verification`,&#xd;
+MAX(IF(obs.concept_id=165586,cn1.name, null)) as `Patient Care in Facility Discontinued`,&#xd;
+MAX(IF(obs.concept_id=165469,obs.value_datetime, null)) as `Date of Discontinuation`,&#xd;
+MAX(IF(obs.concept_id=165470,cn1.name, null)) as `Reason for Discontinuation`,&#xd;
+MAX(IF(obs.concept_id=159495,obs.value_text, null)) as `Facility transferred to`,&#xd;
+MAX(IF(obs.concept_id=165889,cn1.name, null)) as `Cause of Death`,&#xd;
+MAX(IF(obs.concept_id=166349,cn1.name, null)) as `VA Cause of Death`,&#xd;
+MAX(IF(obs.concept_id=166348,cn1.name, null)) as `Adult Causes`,&#xd;
+MAX(IF(obs.concept_id=166347,cn1.name, null)) as `Child Causes`,&#xd;
+MAX(IF(obs.concept_id=165915,obs.value_text, null)) as `Other cause of death`,&#xd;
+MAX(IF(obs.concept_id=165916,cn1.name, null)) as `Reason to Discontinue Care`,&#xd;
+MAX(IF(obs.concept_id=165917,obs.value_text, null)) as `Discontinue Care other specify`,&#xd;
+MAX(IF(obs.concept_id=166152,obs.value_datetime, null)) as `Date of Lost to follow up`,&#xd;
+MAX(IF(obs.concept_id=166157,cn1.name, null)) as `Reason for Lost to follow up`,&#xd;
+MAX(IF(obs.concept_id=167149,obs.value_text, null)) as `Reason for Lost to follow up_Other`&#xd;
+&#xd;
+&#xd;
+&#xd;
+&#xd;
+FROM encounter&#xd;
+LEFT JOIN obs on(encounter.encounter_id=obs.encounter_id and obs.voided=0 and encounter.voided=0 and encounter.form_id=13)&#xd;
+LEFT JOIN patient on(patient.patient_id=encounter.patient_id and encounter.voided=0 and patient.voided=0 and encounter.form_id=13)&#xd;
+ &#xd;
+LEFT JOIN concept_name cn1 on(obs.value_coded=cn1.concept_id and cn1.locale=&apos;en&apos; and cn1.locale_preferred=1)&#xd;
+ &#xd;
+LEFT JOIN patient_identifier pid1 on(pid1.patient_id=patient.patient_id and patient.voided=0 and pid1.identifier_type=4 and pid1.voided=0)&#xd;
+LEFT JOIN patient_identifier pid2 on(pid2.patient_id=patient.patient_id and patient.voided=0 and pid2.identifier_type=5 and pid2.voided=0)&#xd;
+LEFT JOIN global_property gp1 on(gp1.property=&apos;facility_datim_code&apos;)&#xd;
+LEFT JOIN global_property gp2 on(gp2.property=&apos;Facility_Name&apos;)&#xd;
+LEFT JOIN nigeria_datimcode_mapping on(gp1.property_value=nigeria_datimcode_mapping.datim_code)&#xd;
+ &#xd;
+where encounter.encounter_id in (SELECT MAX(encounter.encounter_id) FROM encounter group by encounter.patient_id) and encounter.voided=0 and encounter.form_id=13 and encounter.encounter_datetime BETWEEN :startDate AND :endDate&#xd;
+GROUP BY encounter.encounter_id&#xd;
+ORDER BY encounter.patient_id, encounter.encounter_datetime ASC;</sqlQuery>
+</org.openmrs.module.reporting.dataset.definition.SqlDataSetDefinition>

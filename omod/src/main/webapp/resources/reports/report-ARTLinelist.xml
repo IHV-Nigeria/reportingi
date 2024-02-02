@@ -1,0 +1,41 @@
+<org.openmrs.module.reporting.report.definition.ReportDefinition id="1" uuid="786688c2-2f13-481b-9459-99dd7e2f6899" retired="false">
+  <name>ART Linelist</name>
+  <description>Export of the ART Linelist</description>
+  <creator id="2" uuid="1c3db49d-440a-11e6-a65c-00e04c680037"/>
+  <dateCreated id="3">2023-11-30 12:23:08 UTC</dateCreated>
+  <changedBy reference="2"/>
+  <dateChanged id="4">2023-11-30 12:24:58 UTC</dateChanged>
+  <parameters id="5">
+    <org.openmrs.module.reporting.evaluation.parameter.Parameter id="6">
+      <name>startDate</name>
+      <label>Start Date</label>
+      <type>java.util.Date</type>
+      <required>true</required>
+    </org.openmrs.module.reporting.evaluation.parameter.Parameter>
+    <org.openmrs.module.reporting.evaluation.parameter.Parameter id="7">
+      <name>endDate</name>
+      <label>End Date</label>
+      <type>java.util.Date</type>
+      <required>true</required>
+    </org.openmrs.module.reporting.evaluation.parameter.Parameter>
+  </parameters>
+  <id>267</id>
+  <dataSetDefinitions class="linked-hash-map" id="8">
+    <entry>
+      <string>ART-Linelist</string>
+      <org.openmrs.module.reporting.evaluation.parameter.Mapped id="9">
+        <parameterizable class="org.openmrs.module.reporting.dataset.definition.SqlDataSetDefinition" id="10" uuid="a26f7671-052b-4732-94fb-143ca0c4adb7"/>
+        <parameterMappings id="11">
+          <entry>
+            <string>endDate</string>
+            <string>${endDate}</string>
+          </entry>
+          <entry>
+            <string>startDate</string>
+            <string>${startDate}</string>
+          </entry>
+        </parameterMappings>
+      </org.openmrs.module.reporting.evaluation.parameter.Mapped>
+    </entry>
+  </dataSetDefinitions>
+</org.openmrs.module.reporting.report.definition.ReportDefinition>

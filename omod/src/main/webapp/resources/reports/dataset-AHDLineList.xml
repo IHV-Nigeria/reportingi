@@ -1,10 +1,10 @@
 <org.openmrs.module.reporting.dataset.definition.SqlDataSetDefinition id="1" uuid="a44fe663-b5ea-4961-a831-e7bc0acb847a" retired="false">
   <name>AHDDataset</name>
   <description>Variables for AHD</description>
-  <creator id="2" uuid="1c3db49d-440a-11e6-a65c-00e04c680037"/>
-  <dateCreated id="3">2022-06-06 01:28:55 UTC</dateCreated>
+  <creator id="2" uuid="1658873e-8ada-47ca-9694-381b9a6fd776"/>
+  <dateCreated id="3">2022-08-02 15:06:55 UTC</dateCreated>
   <changedBy reference="2"/>
-  <dateChanged id="4">2022-06-06 02:21:20 UTC</dateChanged>
+  <dateChanged id="4">2023-01-23 14:31:41 UTC</dateChanged>
   <parameters id="5">
     <org.openmrs.module.reporting.evaluation.parameter.Parameter id="6">
       <name>startDate</name>
@@ -19,12 +19,19 @@
       <required>true</required>
     </org.openmrs.module.reporting.evaluation.parameter.Parameter>
   </parameters>
-  <id>257</id>
+  <id>258</id>
   <sqlQuery>SELECT&#xd;
+(SELECT `name` FROM `address_hierarchy_entry` WHERE `level_id`=2 AND `user_generated_id` =&#xd;
+(SELECT property_value FROM global_property WHERE property=&apos;partner_reporting_state&apos; )) AS State,&#xd;
+(SELECT `name` FROM `address_hierarchy_entry` WHERE `level_id`=3 AND `user_generated_id` =&#xd;
+(SELECT property_value FROM global_property WHERE property=&apos;partner_reporting_lga_code&apos; )) AS LGA,&#xd;
+gp1.property_value as DatimCode,&#xd;
+gp2.property_value as FacilityName,&#xd;
 patient.patient_id,&#xd;
 pid1.identifier as `PatientUniqueID`, &#xd;
 pid2.identifier as `PatientHospitalNo`,&#xd;
 person.gender as `Sex`,&#xd;
+person.birthdate as `DateOfBirth`,&#xd;
 &#xd;
 TIMESTAMPDIFF(MONTH,getdatevalueobsid(getmaxconceptobsid(patient.patient_id,159599,:endDate)),getobsdatetime(getmaxconceptobsidwithformid(patient.patient_id,162240,27,:endDate))) as MonthsOnART,&#xd;
 DATE_FORMAT(getdatevalueobsid(getmaxconceptobsid(patient.patient_id,159599,:endDate)),&apos;%d-%b-%Y&apos;) as `ARTStartDate`,&#xd;
@@ -50,11 +57,23 @@ IF(:endDate IS NULL or :endDate = &apos;&apos;, CURDATE(),:endDate)&#xd;
 &#xd;
 ))  as `CurrentARTStatus`,&#xd;
 &#xd;
+getnumericvalueobsid(getmaxconceptobsidwithformid(patient.patient_id,5497,21,:endDate)) as &apos;CD4+CellCount (cells/mm3)&apos;,&#xd;
+DATE_FORMAT(getobsdatetime(getmaxconceptobsidwithformid(patient.patient_id,5497,21,:endDate)),&apos;%d-%b-%Y&apos;) as &apos;CD4+CellCountDate&apos;,&#xd;
+&#xd;
 getcodedvalueobsid(getmaxconceptobsidwithformid(patient.patient_id,167088,21,:endDate)) as CD4LFAResult,&#xd;
 DATE_FORMAT(getobsdatetime(getmaxconceptobsidwithformid(patient.patient_id,167088,21,:endDate)),&apos;%d-%b-%Y&apos;) as CD4LFAResultDate,&#xd;
 &#xd;
 getcodedvalueobsid(getmaxconceptobsidwithformid(patient.patient_id,166697,21,:endDate)) as TBLFLAMResult,&#xd;
 DATE_FORMAT(getobsdatetime(getmaxconceptobsidwithformid(patient.patient_id,166697,21,:endDate)),&apos;%d-%b-%Y&apos;) as TBLFLAMResultDate,&#xd;
+&#xd;
+IF(getcodedintvalueobs(getminconceptobswithformidvaluecoded(patient.patient_id,165974,89,1065,:endDate))=&apos;1065&apos;, &quot;YES&quot;, &quot;NO&quot;) as &apos;Xpert/MTB/RIF Request&apos;,&#xd;
+DATE_FORMAT(getobsdatetime(getminconceptobswithformidvaluecoded(patient.patient_id,165879,94,162202,:endDate)),&apos;%d-%b-%Y&apos;) as &apos;Xpert/MTB/RIF RequestDate&apos;,&#xd;
+&#xd;
+getcodedvalueobsid(getmaxconceptobsidwithformid(patient.patient_id,166697,21,:endDate)) as &apos;Xpert/MTB/RIF Result&apos;,&#xd;
+&#xd;
+getcodedvalueobsid(getminconceptobswithformid(patient.patient_id,165304,27,:endDate)) as &apos;TBTreatment&apos;,&#xd;
+DATE_FORMAT(getobsdatetime(getminconceptobswithformid(patient.patient_id,165304,27,:endDate)),&apos;%d-%b-%Y&apos;) as &apos;TBTreatmentDate&apos;,&#xd;
+&#xd;
 getcodedvalueobsid(getmaxconceptobsidwithformid(patient.patient_id,167090,21,:endDate)) as SerologyForCrAg,&#xd;
 &#xd;
 DATE_FORMAT(getobsdatetime(getmaxconceptobsidwithformid(patient.patient_id,167090,21,:endDate)),&apos;%d-%b-%Y&apos;) as SerologyForCrAgDate,&#xd;
@@ -62,6 +81,12 @@ DATE_FORMAT(getobsdatetime(getmaxconceptobsidwithformid(patient.patient_id,16709
 getcodedvalueobsid(getmaxconceptobsidwithformid(patient.patient_id,167082,21,:endDate)) as CSFForCrAg,&#xd;
 &#xd;
 DATE_FORMAT(getobsdatetime(getmaxconceptobsidwithformid(patient.patient_id,167082,21,:endDate)),&apos;%d-%b-%Y&apos;) as CSFForCrAgDate,&#xd;
+&#xd;
+IF(getcodedintvalueobs(getminconceptobswithformidvaluecoded(patient.patient_id,165727,27,76488,:endDate))=&apos;76488&apos;, &quot;YES&quot;, &quot;NO&quot;) as &apos;FluconazoleTreatment&apos;,&#xd;
+DATE_FORMAT(getobsdatetime(getminconceptobswithformidvaluecoded(patient.patient_id,165727,27,76488,:endDate)),&apos;%d-%b-%Y&apos;) as &apos;FluconazoleTreatmentDate&apos;,&#xd;
+&#xd;
+&apos;&apos; as &apos;LiposomalAmphotericinB&apos;,&#xd;
+&apos;&apos; as &apos;LiposomalAmphotericinBDate&apos;,&#xd;
 &#xd;
 DATE_FORMAT(getdatevalueobsid(getmaxconceptobsidwithformid(patient.patient_id,167091,21,:endDate)),&apos;%r&apos;) as `TimeCD4LFASampleCollected`,&#xd;
 DATE_FORMAT(getdatevalueobsid(getmaxconceptobsidwithformid(patient.patient_id,167092,21,:endDate)),&apos;%r&apos;) as `TimeCD4LFAResultReceived`,&#xd;
@@ -87,6 +112,9 @@ and encounter.encounter_datetime&lt;=:endDate&#xd;
 LEFT JOIN patient_identifier pid1 on(pid1.patient_id=patient.patient_id and patient.voided=0 and pid1.identifier_type=4 and pid1.voided=0)&#xd;
 LEFT JOIN patient_identifier pid2 on(pid2.patient_id=patient.patient_id and patient.voided=0 and pid2.identifier_type=5 and pid2.voided=0)&#xd;
 LEFT JOIN person on(person.person_id=patient.patient_id and person.voided=0)&#xd;
+&#xd;
+LEFT JOIN global_property gp1 on(gp1.property=&apos;facility_datim_code&apos;)&#xd;
+LEFT JOIN global_property gp2 on(gp2.property=&apos;Facility_Name&apos;)&#xd;
 &#xd;
 WHERE pid1.identifier IS NOT NULL and patient.voided=0 </sqlQuery>
 </org.openmrs.module.reporting.dataset.definition.SqlDataSetDefinition>

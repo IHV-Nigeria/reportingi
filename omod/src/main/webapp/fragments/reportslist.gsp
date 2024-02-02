@@ -22,18 +22,18 @@
             </div>
 
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                <div class="card-body">
+                
                     <% if (monitoringReports) { %>
-                    <table>
+                    <table class="table table-striped table-hover" id="uploadDataTable" style="margin: 0px 0 !important;">
                         <% monitoringReports.each { %>
-                        <tr>
-                            <th>${
-                                    ui.includeFragment("uicommons", "extension", [extension: it, contextModel: contextModel])}</th>
+                        <tr style="height: 50px;">
+                            <th><div><span class="light-text"><span class="flaticon2-list"></span>&nbsp; &nbsp; </span><b>${
+                                    ui.includeFragment("uicommons", "extension", [extension: it, contextModel: contextModel])}</b></div></th>
                         </tr>
                         <% } %>
                     </table>
                     <% } %>
-                </div>
+               
             </div>
         </div>
 

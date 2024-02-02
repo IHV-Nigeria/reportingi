@@ -1,0 +1,41 @@
+<org.openmrs.module.reporting.report.definition.ReportDefinition id="1" uuid="827ece1f-98f9-4d58-9a0a-9a013f41cb25" retired="false">
+  <name>NCD Report</name>
+  <description>To pull the dataset for NCD reporting</description>
+  <creator id="2" uuid="4cf418c2-2dff-41e8-87ec-a6a3f2ab8da5"/>
+  <dateCreated id="3">2023-07-14 05:41:03 UTC</dateCreated>
+  <changedBy reference="2"/>
+  <dateChanged id="4">2023-07-14 05:43:08 UTC</dateChanged>
+  <parameters id="5">
+    <org.openmrs.module.reporting.evaluation.parameter.Parameter id="6">
+      <name>startDate</name>
+      <label>Start Date</label>
+      <type>java.util.Date</type>
+      <required>true</required>
+    </org.openmrs.module.reporting.evaluation.parameter.Parameter>
+    <org.openmrs.module.reporting.evaluation.parameter.Parameter id="7">
+      <name>endDate</name>
+      <label>End Date</label>
+      <type>java.util.Date</type>
+      <required>true</required>
+    </org.openmrs.module.reporting.evaluation.parameter.Parameter>
+  </parameters>
+  <id>260</id>
+  <dataSetDefinitions class="linked-hash-map" id="8">
+    <entry>
+      <string>NCD</string>
+      <org.openmrs.module.reporting.evaluation.parameter.Mapped id="9">
+        <parameterizable class="org.openmrs.module.reporting.dataset.definition.SqlDataSetDefinition" id="10" uuid="12abf1a0-c66e-44de-9529-8ab91fc831c2"/>
+        <parameterMappings id="11">
+          <entry>
+            <string>endDate</string>
+            <string>${endDate}</string>
+          </entry>
+          <entry>
+            <string>startDate</string>
+            <string>${startDate}</string>
+          </entry>
+        </parameterMappings>
+      </org.openmrs.module.reporting.evaluation.parameter.Mapped>
+    </entry>
+  </dataSetDefinitions>
+</org.openmrs.module.reporting.report.definition.ReportDefinition>
