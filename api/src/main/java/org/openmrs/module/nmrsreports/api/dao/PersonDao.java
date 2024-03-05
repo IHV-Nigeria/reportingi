@@ -110,6 +110,7 @@ public class PersonDao {
 			//stmt = Database.conn.createStatement(java.sql.ResultSet.TYPE_FORWARD_ONLY, java.sql.ResultSet.CONCUR_READ_ONLY);
 			
 			String query = " select  "
+			        + " patient.patient_id as `pid`, "
 			        + " nigeria_datimcode_mapping.state_name as `State`, "
 			        + " nigeria_datimcode_mapping.lga_name as `LGA`, "
 			        + " gp1.property_value as DatimCode, "
@@ -327,6 +328,7 @@ public class PersonDao {
 			while (rs.next()) {
 				Map<String, String> tempMap = new HashMap();
 				tempMap.put("State", rs.getString("State"));
+				tempMap.put("pid", rs.getString("pid"));
 				tempMap.put("LGA", rs.getString("LGA"));
 				tempMap.put("DatimCode", rs.getString("DatimCode"));
 				tempMap.put("FacilityName", rs.getString("FacilityName"));
@@ -464,9 +466,9 @@ public class PersonDao {
 			
 			//stmt = Database.conn.createStatement(java.sql.ResultSet.TYPE_FORWARD_ONLY, java.sql.ResultSet.CONCUR_READ_ONLY);
 			
-			String query = "INSERT INTO artlinelist (State, LGA, DatimCode, FacilityName, PatientUniqueID, PatientHospitalNo, ANCNoIdentifier, ANCNoConceptID, HTSNo, Sex, AgeAtStartOfARTYears, AgeAtStartOfARTMonths, CareEntryPoint, HIVConfirmedDate, KPType, MonthsOnART, DateTransferredIn, TransferInStatus, ARTStartDate, LastPickupDate, LastVisitDate, DaysOfARVRefil, PillBalance, InitialRegimenLine, InitialRegimen, InitialCD4Count, InitialCD4CountDate, CurrentCD4Count, CurrentCD4CountDate, LastEACDate, CurrentRegimenLine, CurrentRegimen, PregnancyStatus, PregnancyStatusDate, EDD, LastDeliveryDate, LMP, GestationAgeWeeks, CurrentViralLoad_c_ml, ViralLoadEncounterDate, ViralLoadSampleCollectionDate, ViralLoadReportedDate, ResultDate, AssayDate, ApprovalDate, ViralLoadIndication, PatientOutcome, PatientOutcomeDate, CurrentARTStatus, DispensingModality, FacilityDispensingModality, DDDDispensingModality, MMDType, DateReturnedToCare, DateOfTermination, PharmacyNextAppointment, ClinicalNextAppointment, CurrentAgeYears, CurrentAgeMonths, DateOfBirth, MarkAsDeseased, MarkAsDeseasedDeathDate, RegistrationPhoneNo, NextofKinPhoneNo, TreatmentSupporterPhoneNo, BiometricCaptured, BiometricCaptureDate, ValidCapture, CurrentWeight_Kg, CurrentWeightDate, TBStatus, TBStatusDate, BaselineINHStartDate, BaselineINHStopDate, CurrentINHStartDate, CurrentINHOutcome, CurrentINHOutcomeDate, LastINHDispensedDate, BaselineTBTreatmentStartDate, BaselineTBTreatmentStopDate, LastViralLoadSampleCollectionFormDate, LastSampleTakenDate, OTZEnrollmentDate, OTZOutcomeDate, EnrollmentDate, InitialFirstLineRegimen, InitialFirstLineRegimenDate, InitialSecondLineRegimen, InitialSecondLineRegimenDate, LastPickupDatePreviousQuarter, DrugDurationPreviousQuarter, PatientOutcomePreviousQuarter, PatientOutcomeDatePreviousQuarter, ARTStatusPreviousQuarter, QuantityOfARVDispensedLastVisit, FrequencyOfARVDispensedLastVisit, CurrentARTStatusWithPillBalance, RecaptureDate, RecaptureCount)VALUES";
+			String query = "INSERT INTO artlinelist (pid, State, LGA, DatimCode, FacilityName, PatientUniqueID, PatientHospitalNo, ANCNoIdentifier, ANCNoConceptID, HTSNo, Sex, AgeAtStartOfARTYears, AgeAtStartOfARTMonths, CareEntryPoint, HIVConfirmedDate, KPType, MonthsOnART, DateTransferredIn, TransferInStatus, ARTStartDate, LastPickupDate, LastVisitDate, DaysOfARVRefil, PillBalance, InitialRegimenLine, InitialRegimen, InitialCD4Count, InitialCD4CountDate, CurrentCD4Count, CurrentCD4CountDate, LastEACDate, CurrentRegimenLine, CurrentRegimen, PregnancyStatus, PregnancyStatusDate, EDD, LastDeliveryDate, LMP, GestationAgeWeeks, CurrentViralLoad_c_ml, ViralLoadEncounterDate, ViralLoadSampleCollectionDate, ViralLoadReportedDate, ResultDate, AssayDate, ApprovalDate, ViralLoadIndication, PatientOutcome, PatientOutcomeDate, CurrentARTStatus, DispensingModality, FacilityDispensingModality, DDDDispensingModality, MMDType, DateReturnedToCare, DateOfTermination, PharmacyNextAppointment, ClinicalNextAppointment, CurrentAgeYears, CurrentAgeMonths, DateOfBirth, MarkAsDeseased, MarkAsDeseasedDeathDate, RegistrationPhoneNo, NextofKinPhoneNo, TreatmentSupporterPhoneNo, BiometricCaptured, BiometricCaptureDate, ValidCapture, CurrentWeight_Kg, CurrentWeightDate, TBStatus, TBStatusDate, BaselineINHStartDate, BaselineINHStopDate, CurrentINHStartDate, CurrentINHOutcome, CurrentINHOutcomeDate, LastINHDispensedDate, BaselineTBTreatmentStartDate, BaselineTBTreatmentStopDate, LastViralLoadSampleCollectionFormDate, LastSampleTakenDate, OTZEnrollmentDate, OTZOutcomeDate, EnrollmentDate, InitialFirstLineRegimen, InitialFirstLineRegimenDate, InitialSecondLineRegimen, InitialSecondLineRegimenDate, LastPickupDatePreviousQuarter, DrugDurationPreviousQuarter, PatientOutcomePreviousQuarter, PatientOutcomeDatePreviousQuarter, ARTStatusPreviousQuarter, QuantityOfARVDispensedLastVisit, FrequencyOfARVDispensedLastVisit, CurrentARTStatusWithPillBalance, RecaptureDate, RecaptureCount)VALUES";
 			for (int i = 0; i < allPatientMetas.size(); i++) {
-				query += "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?),";
+				query += "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?),";
 			}
 			
 			query = query.substring(0, query.length() - 1);
@@ -487,6 +489,7 @@ public class PersonDao {
 			int i = 1;
 			stmt = con.prepareStatement(query);
 			for (int j = 0; j < allPatientMetas.size(); j++) {
+				stmt.setInt(i++, Integer.parseInt(allPatientMetas.get(j).get("pid")));
 				stmt.setString(i++, allPatientMetas.get(j).get("State"));
 				stmt.setString(i++, allPatientMetas.get(j).get("LGA"));
 				stmt.setString(i++, allPatientMetas.get(j).get("DatimCode"));

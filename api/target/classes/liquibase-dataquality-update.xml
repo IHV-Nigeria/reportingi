@@ -913,6 +913,9 @@
             <column name="flat_auto_inc" autoIncrement="true" type="int">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
+            <column name="pid" type="int" defaultValue="0" >
+                <constraints nullable="false"/>
+            </column>
             <column name="State" type="varchar(255)">
                 <constraints nullable="true"/>
             </column>
@@ -1265,6 +1268,7 @@
 
             <createIndex indexName="artlinelist_unique_id" tableName="artlinelist" unique="true">
                 <column name="PatientUniqueID" />
+                <column name="pid" />
             </createIndex>
             <createIndex indexName="artlinelist_index" tableName="artlinelist" unique="false">
                 <column name="ARTStartDate"/>
