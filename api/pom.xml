@@ -66,11 +66,16 @@
 			<version>2.8.5</version>
 		</dependency>
 	 <dependency>
-	  <groupId>com.zaxxer</groupId>
-	  <artifactId>HikariCP</artifactId>
-	  <version>4.0.3</version>
-	  <type>jar</type>
-	 </dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>4.0.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 	</dependencies>
 
 	<build>
