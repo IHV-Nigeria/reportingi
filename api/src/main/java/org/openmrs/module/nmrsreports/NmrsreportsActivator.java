@@ -116,20 +116,24 @@ public class NmrsreportsActivator extends BaseModuleActivator {
 						int patientId = Integer.parseInt(allPatients.get(j).get("patient_id"));
 						allARTCases.addAll(dao.getARTLL(patientId));
 						//System.out.println("Patient ID" + patientId);
-                                                
-                                        //////////////////////////////////here we come again
-                                        allARTCases.forEach(tempMap -> {
-                                                System.out.println(tempMap.get("Sex"));
-                                        });
-                                        //////////////////////////////////here we come again
+						
+						//////////////////////////////////here we come again
+						/*
+						allARTCases.forEach(tempMap -> {
+						        System.out.println(tempMap.get("Sex"));
+						});
+						*/
+						//////////////////////////////////here we come again
 						dao.saveARTLL(allARTCases);
 					}
-                                        
-                                        //////////////////////////////////here we come again
-                                        allARTCases.forEach(tempMap -> {
-                                                System.out.println(tempMap.get("PatientHospitalNo"));
-                                        });
-                                        //////////////////////////////////here we come again
+					
+					//////////////////////////////////here we come again
+					/*
+					allARTCases.forEach(tempMap -> {
+					        System.out.println(tempMap.get("PatientHospitalNo"));
+					});
+					*/
+					//////////////////////////////////here we come again
 					dao.saveARTLL(allARTCases);
 					
 					//clear all datastructures

@@ -50,7 +50,7 @@
 <div class="tab">
 
     <button class="tablinks" onclick="openTab(event, 'dashboard')"
-            id="defaultOpen">Reports Dashboard</button>
+            id="defaultOpen">Reports Dashboardd</button>
     <button class="tablinks" onclick="openTab(event, 'reports')">Report Line Listings</button>
     <button class="tablinks" onclick="openTab(event, 'encounters')">Search for Encounter</button>
 
@@ -65,6 +65,18 @@ ${ui.includeFragment("nmrsreports", "reportslist")}
 
 <script>
 
+    
+        getCv19Data();
+    function getCv19Data(){
+
+          myAjax({}, '${ ui.actionLink("nmrsreports", "ARTParams", "getAllARTParamsData") }').then(function(response){
+            AllARTParamsData = JSON.parse(response);
+            console.log("back in nmrsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
+            console.log(AllARTParamsData);
+          })
+
+       } 
+   
     // Get the element with id="defaultOpen" and click on it
     document.getElementById("defaultOpen").click();
 

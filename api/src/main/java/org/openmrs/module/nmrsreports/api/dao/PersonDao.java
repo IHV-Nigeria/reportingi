@@ -437,11 +437,11 @@ public class PersonDao {
 				allPatients.add(tempMap);
 			}
 			//////////////////////////////////here we come again
-			
+			/*
 			allPatients.forEach(tempMap -> {
 			        System.out.println(tempMap.get("PatientUniqueID"));
 			});
-			
+			*/
 			//////////////////////////////////here we come again
 			return allPatients;
 			
