@@ -329,48 +329,47 @@ ${ui.includeFragment("nmrsreports", "reportslist")}
     
     
     
-    
         //for stacked pbs
         Highcharts.chart('containerpbs', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'PBS Capture',
-            align: 'Center'
-        },
-        xAxis: {
-            categories: ['2019', '2020', '2021']
-        },
-        yAxis: {
-            min: 0,
+            chart: {
+                type: 'column'
+            },
             title: {
-                text: 'Percent'
-            }
-        },
-        tooltip: {
-            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-            shared: true
-        },
-        plotOptions: {
-            column: {
-                stacking: 'percent',
-                dataLabels: {
-                    enabled: true,
-                    format: '{point.percentage:.0f}%'
+                text: 'PBS Capture',
+                align: 'center'
+            },
+            xAxis: {
+                categories: ['TX_Curr', 'Recaptures', 'Baseline PBS', 'Valid PBS']
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Percent'
                 }
-            }
-        },
-        series: [{
-            name: 'Road',
-            data: [434, 290, 307]
-        }, {
-            name: 'Rail',
-            data: [272, 153, 156]
-        }]
-    });
-    
-    
+            },
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                shared: true
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'percent',
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.percentage:.0f}%'
+                    }
+                }
+            },
+            series: [{
+                name: 'Road',
+                data: [706, 390, 207, 290]
+            }, {
+                name: 'Rail',
+                data: [0, 53, 256, 153]
+            }]
+        });
+        
+        
     
 
     
@@ -384,7 +383,7 @@ ${ui.includeFragment("nmrsreports", "reportslist")}
             align: 'center'
         },
         xAxis: {
-            categories: ['TX_Curr', 'No Recapture', 'No Baseline PBS'],
+            categories: ['TX_Curr', 'No Recapture', 'No Baseline PBS', 'Valid Capture', 'Invalid Capture'],
             crosshair: true,
             accessibility: {
                 description: 'Countries'
@@ -408,7 +407,7 @@ ${ui.includeFragment("nmrsreports", "reportslist")}
         series: [
             {
                 name: 'PBS Capture',
-                data: [406292, 260000, 107000]
+                data: [406292, 260000, 107000, 207000, 77000]
             }
         ]
     });
