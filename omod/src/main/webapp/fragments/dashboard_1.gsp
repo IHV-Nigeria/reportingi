@@ -62,6 +62,23 @@
                 </p>
               </figure>
             </div>
+            <div style="width: 67%; margin-bottom: 20px;">
+              <figure class="highcharts-figure">
+                <div id="containercom"></div>
+                <p class="highcharts-description" style="align-items: center">
+                  <strong></strong>
+                </p>
+              </figure>
+            </div>
+
+            <div style="width: 30%; margin-bottom: 20px;">
+              <figure class="highcharts-figure">
+                <div id="containerpbs"></div>
+                <p class="highcharts-description" style="align-items: center">
+                  <strong></strong>
+                </p>
+              </figure>
+            </div>
           </div>
 
           

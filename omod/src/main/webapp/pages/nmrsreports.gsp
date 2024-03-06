@@ -330,6 +330,49 @@ ${ui.includeFragment("nmrsreports", "reportslist")}
     
     
     
+        //for stacked pbs
+        Highcharts.chart('containerpbs', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'PBS Capture',
+            align: 'Center'
+        },
+        xAxis: {
+            categories: ['2019', '2020', '2021']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Percent'
+            }
+        },
+        tooltip: {
+            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+            shared: true
+        },
+        plotOptions: {
+            column: {
+                stacking: 'percent',
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.percentage:.0f}%'
+                }
+            }
+        },
+        series: [{
+            name: 'Road',
+            data: [434, 290, 307]
+        }, {
+            name: 'Rail',
+            data: [272, 153, 156]
+        }]
+    });
+    
+    
+    
+
     
     //for col
         Highcharts.chart('containercol', {
