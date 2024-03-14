@@ -38,7 +38,7 @@
 
             <div style="width: 30%; margin-bottom: 20px;">
               <figure class="highcharts-figure">
-                <div id="containerpi"></div>
+                <div id="containerrr"></div>
                 <p class="highcharts-description" style="align-items: center">
                   <strong></strong>
                 </p>
@@ -56,12 +56,13 @@
 
             <div style="width: 30%; margin-bottom: 20px;">
               <figure class="highcharts-figure">
-                <div id="containersta"></div>
+                <div id="containerpi"></div>
                 <p class="highcharts-description" style="align-items: center">
                   <strong></strong>
                 </p>
               </figure>
             </div>
+            
             <div style="width: 67%; margin-bottom: 20px;">
               <figure class="highcharts-figure">
                 <div id="containercom"></div>

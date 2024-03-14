@@ -129,9 +129,13 @@ const counts = {
             console.log("datavalues");
             console.log(dataValues);
 
-            const analysisOfRecaptures = counts.RecaptureCounts
+
+            const analysisOfRecaptures = counts.RecaptureCounts;
+            const analysisOfRecapturesData = Object.values(counts.RecaptureCounts);
             console.log("analysisOfRecaptures");
             console.log(analysisOfRecaptures);
+            console.log("analysisOfRecapturesData");
+            console.log(analysisOfRecapturesData);
 
 
 
@@ -173,6 +177,49 @@ const counts = {
                     }
                 ]
             });
+
+
+            //RecaptureCounts analysis chart
+            const categories = Object.keys(analysisOfRecaptures).map(key => key!=="null" ? 'Count ' + parseInt(key) : 'No Recapture');
+            console.log(categories)
+
+            Highcharts.chart('containerrr', {
+                chart: {
+                    type: 'column' // Set the chart type to column
+                },
+                title: {
+                    text: 'Recapture Analysis',
+                    align: 'center'
+                },
+                xAxis: {
+                    categories: categories // Set the categories for the x-axis
+                },
+                yAxis: {
+                    title: {
+                        text: 'Count' // Set the title for the y-axis
+                    }
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y}</b>' // Update the tooltip format
+                },
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.y}</b>', // Update the data label format
+                            style: {
+                                fontSize: '1.2em'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Count',
+                    data: analysisOfRecapturesData // Update the data values
+                }]
+            });
+            
+            
 
           })
             
