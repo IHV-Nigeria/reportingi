@@ -10,7 +10,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>nmrsreports</artifactId>
-	<version>1.0.4-SNAPSHOT</version>
+	<version>1.0.5-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Nmrsreports</name>
 	<description>This module provides the following reports</description>

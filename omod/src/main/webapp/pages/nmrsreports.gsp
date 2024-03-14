@@ -64,17 +64,118 @@ ${ui.includeFragment("nmrsreports", "reportslist")}
 
 
 <script>
-
+const counts = {
+  CurrentARTStatusActive: 0,
+  BiometricCapturedYes: 0,
+  BiometricCapturedNo: 0,
+  ValidCaptureYes: 0,
+  ValidCaptureNo: 0,
+  RecaptureCounts: {}
+};
     
-        getCv19Data();
+    getCv19Data();
     function getCv19Data(){
 
           myAjax({}, '${ ui.actionLink("nmrsreports", "ARTParams", "getAllARTParamsData") }').then(function(response){
             AllARTParamsData = JSON.parse(response);
             console.log("back in nmrsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
             console.log(AllARTParamsData);
-          })
+            console.log("back in nmrss sommmmmmmmmmmmmmmmmmmmmmeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+            // Initialize the counts object
+            
 
+            // Iterate through the array and count the occurrences
+            for (const obj of AllARTParamsData) {
+              if (obj.CurrentARTStatus === "Active") {
+                counts.CurrentARTStatusActive++;
+              }
+              if (obj.BiometricCaptured === "Yes") {
+                counts.BiometricCapturedYes++;
+              }
+              if (obj.BiometricCaptured === "No") {
+                counts.BiometricCapturedNo++;
+              }
+              if (obj.ValidCapture === "Yes") {
+                counts.ValidCaptureYes++;
+              }
+              if (obj.ValidCapture === "No") {
+                counts.ValidCaptureNo++;
+              }
+              const recaptureCount = obj.RecaptureCount;
+                if (recaptureCount !== null && recaptureCount !== undefined) {
+                    if (counts.RecaptureCounts[recaptureCount]) {
+                    counts.RecaptureCounts[recaptureCount]++;
+                    } else {
+                    counts.RecaptureCounts[recaptureCount] = 1;
+                    }
+                } else {
+                    if (counts.RecaptureCounts[null]) {
+                        counts.RecaptureCounts[null]++;
+                    } else {
+                        counts.RecaptureCounts[null] = 1;
+                    }
+                }
+            }
+            console.log("log here");
+            console.log(counts.BiometricCapturedYes);
+            console.log("log here again");
+            console.log(counts);
+            const dataValues = [
+                counts.CurrentARTStatusActive,
+                counts.BiometricCapturedNo,
+                counts.ValidCaptureYes,
+                counts.ValidCaptureNo
+            ];
+            console.log("datavalues");
+            console.log(dataValues);
+
+            const analysisOfRecaptures = counts.RecaptureCounts
+            console.log("analysisOfRecaptures");
+            console.log(analysisOfRecaptures);
+
+
+
+            // Modify the series data with dynamically supplied values
+            const chart = Highcharts.chart('containercol', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'PBS Capture',
+                    align: 'center'
+                },
+                xAxis: {
+                    categories: ['TX_Curr', 'No Baseline PBS', 'Valid Capture', 'Invalid Capture'],
+                    crosshair: true,
+                    accessibility: {
+                        description: 'Countries'
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Number of TX_Curr with PBS Capture'
+                    }
+                },
+                tooltip: {
+                    valueSuffix: ' (1000 MT)'
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [
+                    {
+                        name: 'PBS Capture',
+                        data: dataValues
+                    }
+                ]
+            });
+
+          })
+            
        } 
    
     // Get the element with id="defaultOpen" and click on it
@@ -374,47 +475,31 @@ ${ui.includeFragment("nmrsreports", "reportslist")}
 
     
     //for col
-        Highcharts.chart('containercol', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'PBS Capture',
-            align: 'center'
-        },
-        xAxis: {
-            categories: ['TX_Curr', 'No Recapture', 'No Baseline PBS', 'Valid Capture', 'Invalid Capture'],
-            crosshair: true,
-            accessibility: {
-                description: 'Countries'
-            }
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Number of TX_Curr with PBS Capture'
-            }
-        },
-        tooltip: {
-            valueSuffix: ' (1000 MT)'
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        series: [
-            {
-                name: 'PBS Capture',
-                data: [406292, 260000, 107000, 207000, 77000]
-            }
-        ]
-    });
+    console.log("tanu " + counts.BiometricCapturedYes)
+    const tanu = counts.BiometricCapturedYes
+    
+        // Mapping the counts object to match the order of categories in the chart
+        const dataValues = [
+            counts.CurrentARTStatusActive,
+            counts.BiometricCapturedNo,
+            counts.ValidCaptureYes,
+            counts.ValidCaptureNo
+        ];
+        console.log("datavalues");
+        console.log(dataValues);
+        
+
 
 
 
 </script>
+
+
+
+
+
+
+
 
 
 
