@@ -110,32 +110,72 @@ const counts = {
                     }
                 } else {
                     if (counts.RecaptureCounts[null]) {
-                        if(obj.ARTStartDate == obj.LastPickupDate){
-                            console.log("ARTStartDate")
-                            console.log(obj.ARTStartDate)
-                            console.log("LastPickupDate")
-                            console.log(obj.LastPickupDate)
-                            console.log("currentDate")
+                        if(obj.ARTStartDate != "" && obj.ARTStartDate == obj.LastPickupDate){
+                            //console.log("ARTStartDate")
+                            //console.log(obj.ARTStartDate)
+                            //console.log("LastPickupDate")
+                            //console.log(obj.LastPickupDate)
+                            //console.log("currentDate")
                             const currentDate = new Date();
-                            console.log(currentDate)
-                            console.log("DaysOfARVRefil")
-                            console.log(obj.DaysOfARVRefil)
+                            //console.log(currentDate)
+                            //console.log("DaysOfARVRefil")
+                            //console.log(obj.DaysOfARVRefil)
 
+
+
+
+                            
+                            const dateToSubtract = new Date(obj.ARTStartDate);
+                            const differenceInMilliseconds = currentDate - dateToSubtract;
+                            const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
+                            const initARVDays = obj.DaysOfARVRefil;
+                            if(differenceInDays>initARVDays){
+                            //console.log("eligible");
                             counts.RecaptureCounts[null]++;
+                            }
+                            //console.log("differenceInDays");
+                            //console.log(differenceInDays);
+
+
+
+
+
+
+                            
                         }
                     } else {
-                        if(obj.ARTStartDate == obj.LastPickupDate){
-                            console.log("ARTStartDate")
-                            console.log(obj.ARTStartDate)
-                            console.log("LastPickupDate")
-                            console.log(obj.LastPickupDate)
-                            console.log("currentDate")
+                        if(obj.ARTStartDate != "" && obj.ARTStartDate == obj.LastPickupDate){
+                            //console.log("ARTStartDate")
+                            //console.log(obj.ARTStartDate)
+                            //console.log("LastPickupDate")
+                            //console.log(obj.LastPickupDate)
+                            //console.log("currentDate")
                             const currentDate = new Date();
-                            console.log(currentDate)
-                            console.log("DaysOfARVRefil")
-                            console.log(obj.DaysOfARVRefil)
+                            //console.log(currentDate)
+                            //console.log("DaysOfARVRefil")
+                            //console.log(obj.DaysOfARVRefil)
+
+
+
+
                             
+                            const dateToSubtract = new Date(obj.ARTStartDate);
+                            const differenceInMilliseconds = currentDate - dateToSubtract;
+                            const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
+                            const initARVDays = obj.DaysOfARVRefil;
+                            if(differenceInDays>initARVDays){
+                            //console.log("eligible");
                             counts.RecaptureCounts[null] = 1;
+                            }
+                            //console.log("differenceInDays");
+                            //console.log(differenceInDays);
+
+
+
+
+
+
+                            
                         }
                         
                     }
@@ -148,7 +188,7 @@ const counts = {
             const dataValues = [
                 counts.CurrentARTStatusActive,
                 counts.BiometricCapturedNo,
-                counts.ValidCaptureYes,
+                counts.RecaptureCounts[null],
                 counts.ValidCaptureNo
             ];
             console.log("datavalues");
@@ -170,11 +210,11 @@ const counts = {
                     type: 'column'
                 },
                 title: {
-                    text: 'PBS Capture',
+                    text: 'PBS Gap Analysis',
                     align: 'center'
                 },
                 xAxis: {
-                    categories: ['TX_Curr', 'No Baseline PBS', 'Valid Capture', 'Invalid Capture'],
+                    categories: ['TX_Curr', 'No Baseline PBS', 'No Recapture', 'Invalid Capture'],
                     crosshair: true,
                     accessibility: {
                         description: 'Countries'
@@ -187,12 +227,17 @@ const counts = {
                     }
                 },
                 tooltip: {
-                    valueSuffix: ' (1000 MT)'
+                    pointFormat: '{series.name}: <b>{point.y}</b>' // Update the tooltip format
                 },
                 plotOptions: {
                     column: {
-                        pointPadding: 0.2,
-                        borderWidth: 0
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.y}</b>', // Update the data label format
+                            style: {
+                                fontSize: '1.2em'
+                            }
+                        }
                     }
                 },
                 series: [
@@ -565,6 +610,10 @@ const counts = {
 
 
 </script>
+
+
+
+
 
 
 
