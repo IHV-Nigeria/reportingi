@@ -110,9 +110,34 @@ const counts = {
                     }
                 } else {
                     if (counts.RecaptureCounts[null]) {
-                        counts.RecaptureCounts[null]++;
+                        if(obj.ARTStartDate == obj.LastPickupDate){
+                            console.log("ARTStartDate")
+                            console.log(obj.ARTStartDate)
+                            console.log("LastPickupDate")
+                            console.log(obj.LastPickupDate)
+                            console.log("currentDate")
+                            const currentDate = new Date();
+                            console.log(currentDate)
+                            console.log("DaysOfARVRefil")
+                            console.log(obj.DaysOfARVRefil)
+
+                            counts.RecaptureCounts[null]++;
+                        }
                     } else {
-                        counts.RecaptureCounts[null] = 1;
+                        if(obj.ARTStartDate == obj.LastPickupDate){
+                            console.log("ARTStartDate")
+                            console.log(obj.ARTStartDate)
+                            console.log("LastPickupDate")
+                            console.log(obj.LastPickupDate)
+                            console.log("currentDate")
+                            const currentDate = new Date();
+                            console.log(currentDate)
+                            console.log("DaysOfARVRefil")
+                            console.log(obj.DaysOfARVRefil)
+                            
+                            counts.RecaptureCounts[null] = 1;
+                        }
+                        
                     }
                 }
             }
