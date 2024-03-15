@@ -375,46 +375,6 @@ const counts = {
         })
     });
 
-    // Build the chart
-    Highcharts.chart('containerpi', {
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
-        },
-        title: {
-            text: 'CTD Tracking',
-            align: 'center'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        accessibility: {
-            point: {
-                valueSuffix: '%'
-            }
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<span style="font-size: 1.2em"><b>{point.name}</b></span><br>' +
-                        '<span style="opacity: 0.6">{point.percentage:.1f} %</span>',
-                    connectorColor: 'rgba(128,128,128,0.5)'
-                }
-            }
-        },
-        series: [{
-            name: 'Share',
-            data: [
-                { name: 'Clients Being Tracked', y: 938899 },
-                { name: 'Clients without Outcome', y: 1229600 }
-            ]
-        }]
-    });
 
 
     
@@ -494,22 +454,64 @@ const counts = {
         }]
     });
     
+
+
+
+    // Build the chart
+    Highcharts.chart('containerpi', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'CTD Tracking',
+            align: 'center'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<span style="font-size: 1.2em"><b>{point.name}</b></span><br>' +
+                        '<span style="opacity: 0.6">{point.percentage:.1f} %</span>',
+                    connectorColor: 'rgba(128,128,128,0.5)'
+                }
+            }
+        },
+        series: [{
+            name: 'Share',
+            data: [
+                { name: 'Clients Being Tracked', y: 938899 },
+                { name: 'Clients without Outcome', y: 1229600 }
+            ]
+        }]
+    });
     
-    //for stacked
-        Highcharts.chart('containersta', {
+
+   
+
+    //for stacked pbs
+    Highcharts.chart('containerpbs', {
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Further Analytics',
-            align: 'left'
-        },
-        subtitle: {
-            text: 'Source: <a href="https://www.ssb.no/transport-og-reiseliv/landtransport/statistikk/innenlandsk-transport">SSB</a>',
-            align: 'left'
+            text: 'PBS Capture',
+            align: 'center'
         },
         xAxis: {
-            categories: ['2019', '2020', '2021']
+            categories: ['TX_Curr', 'Recaptures', 'Baseline PBS', 'Valid PBS']
         },
         yAxis: {
             min: 0,
@@ -532,61 +534,14 @@ const counts = {
         },
         series: [{
             name: 'Road',
-            data: [434, 290, 307]
+            data: [706, 390, 207, 290]
         }, {
             name: 'Rail',
-            data: [272, 153, 156]
-        }, {
-            name: 'Air',
-            data: [13, 7, 8]
-        }, {
-            name: 'Sea',
-            data: [55, 35, 41]
+            data: [0, 53, 256, 153]
         }]
     });
-    
-    
-    
-        //for stacked pbs
-        Highcharts.chart('containerpbs', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'PBS Capture',
-                align: 'center'
-            },
-            xAxis: {
-                categories: ['TX_Curr', 'Recaptures', 'Baseline PBS', 'Valid PBS']
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Percent'
-                }
-            },
-            tooltip: {
-                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-                shared: true
-            },
-            plotOptions: {
-                column: {
-                    stacking: 'percent',
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.percentage:.0f}%'
-                    }
-                }
-            },
-            series: [{
-                name: 'Road',
-                data: [706, 390, 207, 290]
-            }, {
-                name: 'Rail',
-                data: [0, 53, 256, 153]
-            }]
-        });
         
+    
         
     
 

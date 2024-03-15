@@ -18,7 +18,7 @@
         
         
         <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-            <div style="width: 30%; margin-bottom: 20px;">
+            <div style="width: 32%; margin-bottom: 20px;">
               <figure class="highcharts-figure">
                 <div id="containeras"></div>
                 <p class="highcharts-description" style="align-items: center">
@@ -27,7 +27,7 @@
               </figure>
             </div>
             
-            <div style="width: 30%; margin-bottom: 20px;">
+            <div style="width: 32%; margin-bottom: 20px;">
               <figure class="highcharts-figure">
                 <div id="containercol"></div>
                 <p class="highcharts-description" style="align-items: center">
@@ -36,7 +36,7 @@
               </figure>
             </div>
 
-            <div style="width: 30%; margin-bottom: 20px;">
+            <div style="width: 32%; margin-bottom: 20px;">
               <figure class="highcharts-figure">
                 <div id="containerrr"></div>
                 <p class="highcharts-description" style="align-items: center">
@@ -54,18 +54,9 @@
               </figure>
             </div>
 
-            <div style="width: 30%; margin-bottom: 20px;">
+            <div style="width: 32%; margin-bottom: 20px;">
               <figure class="highcharts-figure">
                 <div id="containerpi"></div>
-                <p class="highcharts-description" style="align-items: center">
-                  <strong></strong>
-                </p>
-              </figure>
-            </div>
-            
-            <div style="width: 67%; margin-bottom: 20px;">
-              <figure class="highcharts-figure">
-                <div id="containercom"></div>
                 <p class="highcharts-description" style="align-items: center">
                   <strong></strong>
                 </p>
