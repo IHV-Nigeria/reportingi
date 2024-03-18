@@ -7,6 +7,7 @@
     td {
         border: none;
     }
+
     </style>
 
     <div class="container-fluid bg-light ">
@@ -35,10 +36,48 @@
                 </p>
               </figure>
             </div>
-
+            
             <div style="width: 32%; margin-bottom: 20px;">
               <figure class="highcharts-figure">
-                <div id="containerrr"></div>
+                <div id="containerPBSTrend"></div>
+                <p class="highcharts-description" style="align-items: center">
+                  <strong></strong>
+                </p>
+              </figure>
+            </div>
+            
+            <div class="horizontal-line" style="border-top: 1px solid #CCCCCC; width: 100%; margin: 10px 0;"></div>
+            
+            <div style="width: 50%; margin-bottom: 20px;">
+              <figure class="highcharts-figure">
+                <div id="containereaca"></div>
+                <p class="highcharts-description" style="align-items: center">
+                  <strong></strong>
+                </p>
+              </figure>
+            </div>
+            
+            <div style="width: 50%; margin-bottom: 20px;">
+              <figure class="highcharts-figure">
+                <div id="containereacb"></div>
+                <p class="highcharts-description" style="align-items: center">
+                  <strong></strong>
+                </p>
+              </figure>
+            </div>
+
+            <div style="width: 50%; margin-bottom: 20px;">
+              <figure class="highcharts-figure">
+                <div id="containereacc"></div>
+                <p class="highcharts-description" style="align-items: center">
+                  <strong></strong>
+                </p>
+              </figure>
+            </div>
+            
+            <div style="width: 50%; margin-bottom: 20px;">
+              <figure class="highcharts-figure">
+                <div id="containereacd"></div>
                 <p class="highcharts-description" style="align-items: center">
                   <strong></strong>
                 </p>

@@ -30,6 +30,7 @@
 <% //ui.includeJavascript("nmrsreports", "map.js") %>
 <% //ui.includeJavascript("nmrsreports", "drilldown.js") %>
 <% //ui.includeJavascript("nmrsreports", "data.js") %>
+<% //ui.includeJavascript("nmrsreports", "js/highcharts-more.js") %>
 <% ui.includeJavascript("nmrsreports", "js/accessibility.js") %>
 <% ui.includeJavascript("nmrsreports", "js/exporting.js") %>
 <% //ui.includeJavascript("nmrsreports", "offline-exporting.js") %>
@@ -70,7 +71,21 @@ const counts = {
   BiometricCapturedNo: 0,
   ValidCaptureYes: 0,
   ValidCaptureNo: 0,
-  RecaptureCounts: {}
+  RecaptureCounts: {},
+  currentViralLoad: {
+    Unsuppressed: [],
+    LLV: []
+  },
+  PBSTrend: {
+    Active: [{
+      "date": "",
+      pids:[] 
+    }],
+    BiometricCaptured: [{
+      "date": "",
+      pids:[] 
+    }],
+  }
 };
     
     getCv19Data();
@@ -180,6 +195,15 @@ const counts = {
                         
                     }
                 }
+
+                if (obj.CurrentViralLoad_c_ml !== null && obj.CurrentViralLoad_c_ml !== undefined) {
+                const currentViralLoad = parseInt(obj.CurrentViralLoad_c_ml);
+                    if (currentViralLoad >= 1000) {
+                    counts.currentViralLoad.Unsuppressed.push(obj.pid);
+                    } else if (currentViralLoad >= 50 && currentViralLoad < 1000) {
+                    counts.currentViralLoad.LLV.push(obj.pid);
+                    }
+                } else {/*undefined*/}
             }
             console.log("log here");
             console.log(counts.BiometricCapturedYes);
@@ -201,6 +225,153 @@ const counts = {
             console.log(analysisOfRecaptures);
             console.log("analysisOfRecapturesData");
             console.log(analysisOfRecapturesData);
+
+            const Unsuppressed = counts.currentViralLoad.Unsuppressed.length;
+            const LLV = counts.currentViralLoad.LLV.length;
+            console.log("currentViralLoad");
+            console.log(Unsuppressed);
+            console.log(LLV);
+
+            
+            
+            
+            
+            
+            
+            function groupPidsByCondition(data, counts) {
+                const currentDate = new Date();
+                const currentMonth = currentDate.getMonth() + 1; 
+                const currentYear = currentDate.getFullYear();
+              
+                let startMonth, startYear;
+                if (currentMonth >= 10) {
+                  // If the current month is October or later, start from October of the current year
+                  startMonth = 10;
+                  startYear = currentYear;
+                } else {
+                  // If the current month is January to September, start from October of the previous year
+                  startMonth = 10;
+                  startYear = currentYear - 1;
+                }
+              
+                // Group the values based on the conditions and store them in PBSTrend
+                data.forEach((item) => {
+                    const { CurrentARTStatus, BiometricCaptured, pid, LastPickupDate } = item;
+
+                    const pickupMonth = new Date(LastPickupDate).getMonth() + 1; // Adding 1 because months are zero-based
+                    const pickupYear = new Date(LastPickupDate).getFullYear();
+
+                    if (pickupYear > startYear || (pickupYear === startYear && pickupMonth >= startMonth)) {
+                      if (CurrentARTStatus === "Active") {
+                        const pickupDate = new Date(LastPickupDate).toLocaleString("default", {
+                          month: "long",
+                          year: "numeric",
+                        });
+                        const existingDateIndex = counts.PBSTrend.Active.findIndex((group) => group.date === pickupDate);
+                        if (existingDateIndex !== -1) {
+                          counts.PBSTrend.Active[existingDateIndex].pids.push(pid);
+                        } else {
+                          counts.PBSTrend.Active.push({ date: pickupDate, pids: [pid] });
+                        }
+
+
+                          if (BiometricCaptured === "Yes") {
+                            const pickupDate = new Date(LastPickupDate).toLocaleString("default", {
+                              month: "long",
+                              year: "numeric",
+                            });
+                            const existingDateIndex = counts.PBSTrend.BiometricCaptured.findIndex((group) => group.date === pickupDate);
+                            if (existingDateIndex !== -1) {
+                              counts.PBSTrend.BiometricCaptured[existingDateIndex].pids.push(pid);
+                            } else {
+                              counts.PBSTrend.BiometricCaptured.push({ date: pickupDate, pids: [pid] });
+                            }
+                          }
+                      }
+                    }
+                  });
+              
+                // The values are now stored in PBSTrend.Active and PBSTrend.BiometricCaptured based on the conditions
+              }
+              
+              groupPidsByCondition(AllARTParamsData, counts);
+              
+              //output
+              console.log(counts.PBSTrend.Active); // Array of pids where CurrentARTStatus is "Active"
+              console.log(counts.PBSTrend.BiometricCaptured); // Array of pids where BiometricCaptured is "Yes"
+              
+              
+              const countsPBSTrendActive = counts.PBSTrend.Active.map(item => ({
+                date: item.date,
+                pidlength: item.pids.length
+              })).filter(item => item.date !== ""); // Remove the first empty item
+              console.log("countsPBSTrendActive");
+              console.log(countsPBSTrendActive);
+              
+              const countsPBSTrendBiometricCaptured = counts.PBSTrend.BiometricCaptured.map(item => ({
+                date: item.date,
+                pidlength: item.pids.length
+              })).filter(item => item.date !== ""); // Remove the first empty item
+              console.log("countsPBSTrendBiometricCaptured");
+              console.log(countsPBSTrendBiometricCaptured);
+              
+              
+              
+              
+              for (let i = countsPBSTrendActive.length - 2; i >= 0; i--) {
+                    countsPBSTrendActive[i].pidlength += countsPBSTrendActive[i + 1].pidlength;
+                }
+
+                console.log(countsPBSTrendActive);
+              
+              
+                console.log("converted to function")
+                function calculateCumulativePidlength(input) {
+                    const countsPBSTrendActive = input.map(item => ({
+                      date: item.date,
+                      pidlength: item.pids.length
+                    })).filter(item => item.date !== "");
+
+                    for (let i = countsPBSTrendActive.length - 2; i >= 0; i--) {
+                      countsPBSTrendActive[i].pidlength += countsPBSTrendActive[i + 1].pidlength;
+                    }
+
+                    return countsPBSTrendActive;
+                }
+                const cumulativePidlength_resultActive = calculateCumulativePidlength(counts.PBSTrend.Active);
+                console.log(cumulativePidlength_resultActive);
+                
+                const cumulativePidlength_resultPBSYes = calculateCumulativePidlength(counts.PBSTrend.BiometricCaptured);
+                console.log(cumulativePidlength_resultPBSYes);
+                
+
+              
+                //data for the PBS Basetcapture trend
+                
+                const cumulativePidlength_result = [];
+
+                for (let i = 0; i < cumulativePidlength_resultActive.length; i++) {
+                  const a = cumulativePidlength_resultActive[i].pidlength;
+                  const b = cumulativePidlength_resultPBSYes[i].pidlength;
+                  const result = (b / a).toFixed(2);
+                  cumulativePidlength_result.push({
+                    date: cumulativePidlength_resultActive[i].date,
+                    result: result
+                  });
+                }
+
+                console.log(cumulativePidlength_result);
+                
+                const monthNames = cumulativePidlength_result.map(item => item.date.split(' ')[0].slice(0, 3));
+                const resultValues = cumulativePidlength_result.map(item => parseFloat(item.result));
+
+                monthNames.reverse();
+                resultValues.reverse();
+
+                console.log(monthNames);
+                console.log(resultValues);
+
+
 
 
 
@@ -249,6 +420,41 @@ const counts = {
             });
 
 
+
+
+
+            //for Line with data labels
+            Highcharts.chart('containerPBSTrend', {
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'PBS Base Capture Trend'
+                },
+                xAxis: {
+                    categories: monthNames
+                },
+                yAxis: {
+                    title: {
+                        text: 'Retention in Treatment'
+                    }
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+                series: [{
+                    name: 'IIT',
+                    data: resultValues
+                }]
+            });
+            
+
+            /*
             //RecaptureCounts analysis chart
             const categories = Object.keys(analysisOfRecaptures).map(key => key!=="null" ? 'Count ' + parseInt(key) : 'No Recapture');
             console.log(categories)
@@ -286,6 +492,157 @@ const counts = {
                 series: [{
                     name: 'Count',
                     data: analysisOfRecapturesData // Update the data values
+                }]
+            });
+            */
+
+
+            const tx_curr = counts.CurrentARTStatusActive;
+            Highcharts.chart('containereaca', {
+                chart: {
+                    type: 'column' // Set the chart type to column
+                },
+                title: {
+                    text: 'Eligibility for EAC',
+                    align: 'center'
+                },
+                xAxis: {
+                    categories: ['TX_Curr', 'Unsuppressed', 'LLV'] // Set the categories for the x-axis
+                },
+                yAxis: {
+                    title: {
+                        text: 'Count' // Set the title for the y-axis
+                    }
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y}</b>' // Update the tooltip format
+                },
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.y}</b>', // Update the data label format
+                            style: {
+                                fontSize: '1.2em'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Count',
+                    data: [tx_curr, Unsuppressed, LLV] // Update the data values
+                }]
+            });
+
+
+            const eligibleForEAC = Unsuppressed+LLV;
+            const notCommencedEAC = eligibleForEAC-23;
+            Highcharts.chart('containereacb', {
+                chart: {
+                    type: 'column' // Set the chart type to column
+                },
+                title: {
+                    text: 'EAC Commencement',
+                    align: 'center'
+                },
+                xAxis: {
+                    categories: ['Eligible for EAC', 'Not Commenced EAC', 'Commenced EAC', 'EAC > 3 Months'] // Set the categories for the x-axis
+                },
+                yAxis: {
+                    title: {
+                        text: 'Count' // Set the title for the y-axis
+                    }
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y}</b>' // Update the tooltip format
+                },
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.y}</b>', // Update the data label format
+                            style: {
+                                fontSize: '1.2em'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Count',
+                    data: [eligibleForEAC, notCommencedEAC, 23, 20] // Update the data values
+                }]
+            });
+
+
+            Highcharts.chart('containereacc', {
+                chart: {
+                    type: 'column' // Set the chart type to column
+                },
+                title: {
+                    text: 'EAC Sessions',
+                    align: 'center'
+                },
+                xAxis: {
+                    categories: ['EAC > 3 Months', '1 EAC', '2 EACs', '3 EACs and above'] // Set the categories for the x-axis
+                },
+                yAxis: {
+                    title: {
+                        text: 'Count' // Set the title for the y-axis
+                    }
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y}</b>' // Update the tooltip format
+                },
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.y}</b>', // Update the data label format
+                            style: {
+                                fontSize: '1.2em'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Count',
+                    data: [20, 12, 3, 5] // Update the data values
+                }]
+            });
+
+            Highcharts.chart('containereacd', {
+                chart: {
+                    type: 'column' // Set the chart type to column
+                },
+                title: {
+                    text: 'Post EAC Viral Load Results',
+                    align: 'center'
+                },
+                xAxis: {
+                    categories: ['3 EACs and above', 'VL (<50)', 'VL (50 - 999)', 'VL (>=1000'] // Set the categories for the x-axis
+                },
+                yAxis: {
+                    title: {
+                        text: 'Count' // Set the title for the y-axis
+                    }
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y}</b>' // Update the tooltip format
+                },
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.y}</b>', // Update the data label format
+                            style: {
+                                fontSize: '1.2em'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Count',
+                    data: [5, 2, 1, 2] // Update the data values
                 }]
             });
             
@@ -355,6 +712,12 @@ const counts = {
                 2.0, -0.9]
         }]
     });
+
+
+    
+
+
+
     
     
     // for Pie
