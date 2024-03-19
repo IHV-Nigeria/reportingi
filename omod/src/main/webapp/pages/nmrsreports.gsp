@@ -353,7 +353,7 @@ const counts = {
                 for (let i = 0; i < cumulativePidlength_resultActive.length; i++) {
                   const a = cumulativePidlength_resultActive[i].pidlength;
                   const b = cumulativePidlength_resultPBSYes[i].pidlength;
-                  const result = (b / a).toFixed(2);
+                  const result = ((b / a)*100).toFixed(0);
                   cumulativePidlength_result.push({
                     date: cumulativePidlength_resultActive[i].date,
                     result: result
@@ -368,9 +368,56 @@ const counts = {
                 monthNames.reverse();
                 resultValues.reverse();
 
+                
                 console.log(monthNames);
                 console.log(resultValues);
 
+
+
+
+            // Modify the series data with dynamically supplied values
+            const chart2 = Highcharts.chart('containercolIIT', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Potential IIT',
+                    align: 'center'
+                },
+                xAxis: {
+                    categories: ['Potential IIT (1 Week)', 'Potential IIT (1 Month)'],
+                    crosshair: true,
+                    accessibility: {
+                        description: 'Countries'
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Number of TX_Curr with PBS Capture'
+                    }
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y}</b>' // Update the tooltip format
+                },
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.y}</b>', // Update the data label format
+                            style: {
+                                fontSize: '1.2em'
+                            }
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'Potential IIT',
+                        data: [12, 23]
+                    }
+                ]
+            });
 
 
 
@@ -432,23 +479,29 @@ const counts = {
                     text: 'PBS Base Capture Trend'
                 },
                 xAxis: {
-                    categories: monthNames
+                    categories: monthNames,
+                    title: {
+                        text: 'Current COP Year' // Add the desired title here
+                    }
                 },
                 yAxis: {
                     title: {
-                        text: 'Retention in Treatment'
+                        text: '% Trend'
                     }
                 },
                 plotOptions: {
                     line: {
                         dataLabels: {
-                            enabled: true
+                            enabled: true,
+                            formatter: function() {
+                                return this.y + '%'; // Add the percent sign to the data label
+                            }
                         },
                         enableMouseTracking: false
                     }
                 },
                 series: [{
-                    name: 'IIT',
+                    name: '',
                     data: resultValues
                 }]
             });
@@ -712,6 +765,11 @@ const counts = {
                 2.0, -0.9]
         }]
     });
+    
+    
+    
+    
+    
 
 
     
