@@ -137,7 +137,7 @@
             
             
             
-            <div style="width: 32%; margin-bottom: 20px;">
+            <div style="width: 50%; margin-bottom: 20px;">
               <figure class="highcharts-figure">
                 <div id="containercol"></div>
                 <p class="highcharts-description" style="align-items: center">
@@ -146,7 +146,7 @@
               </figure>
             </div>
             
-            <div style="width: 32%; margin-bottom: 20px;">
+            <div style="width: 50%; margin-bottom: 20px;">
               <figure class="highcharts-figure">
                 <div id="containerPBSTrend"></div>
                 <p class="highcharts-description" style="align-items: center">
@@ -193,7 +193,7 @@
               </figure>
             </div>
 
-            <div style="width: 67%; margin-bottom: 20px;">
+            <div style="width: 67%; margin-bottom: 20px; display: none">
               <figure class="highcharts-figure">
                 <div id="containercom"></div>
                 <p class="highcharts-description" style="align-items: center">
@@ -202,7 +202,7 @@
               </figure>
             </div>
 
-            <div style="width: 32%; margin-bottom: 20px;">
+            <div style="width: 50%; margin-bottom: 20px;">
               <figure class="highcharts-figure">
                 <div id="containerpi"></div>
                 <p class="highcharts-description" style="align-items: center">
@@ -211,7 +211,7 @@
               </figure>
             </div>
 
-            <div style="width: 30%; margin-bottom: 20px;">
+            <div style="width: 30%; margin-bottom: 20px; display: none">
               <figure class="highcharts-figure">
                 <div id="containerpbs"></div>
                 <p class="highcharts-description" style="align-items: center">

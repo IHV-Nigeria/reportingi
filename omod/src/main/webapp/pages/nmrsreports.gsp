@@ -403,7 +403,7 @@ const counts = {
                 plotOptions: {
                     column: {
                         dataLabels: {
-                            enabled: true,
+                            enabled: false,
                             format: '<b>{point.y}</b>', // Update the data label format
                             style: {
                                 fontSize: '1.2em'
@@ -649,7 +649,7 @@ const counts = {
                 plotOptions: {
                     column: {
                         dataLabels: {
-                            enabled: true,
+                            enabled: false,
                             format: '<b>{point.y}</b>', // Update the data label format
                             style: {
                                 fontSize: '1.2em'
@@ -685,7 +685,7 @@ const counts = {
                 plotOptions: {
                     column: {
                         dataLabels: {
-                            enabled: true,
+                            enabled: false,
                             format: '<b>{point.y}</b>', // Update the data label format
                             style: {
                                 fontSize: '1.2em'
@@ -740,7 +740,7 @@ const counts = {
             text: 'Retention Chart'
         },
         xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            categories: ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar']
         },
         yAxis: {
             title: {
@@ -750,19 +750,17 @@ const counts = {
         plotOptions: {
             line: {
                 dataLabels: {
-                    enabled: true
+                    enabled: false
                 },
                 enableMouseTracking: false
             }
         },
         series: [{
             name: 'TX_Curr',
-            data: [16.0, 18.2, 23.1, 27.9, 32.2, 36.4, 39.8, 38.4, 35.5, 29.2,
-                22.0, 17.8]
+            data: [16.0, 18.2, 23.1, 27.9, 32.2, 36.4]
         }, {
             name: 'IIT',
-            data: [-2.9, -3.6, -0.6, 4.8, 10.2, 14.5, 17.6, 16.5, 12.0, 6.5,
-                2.0, -0.9]
+            data: [-2.9, -3.6, -0.6, 4.8, 10.2, 14.5]
         }]
     });
     
@@ -903,7 +901,7 @@ const counts = {
                 allowPointSelect: true,
                 cursor: 'pointer',
                 dataLabels: {
-                    enabled: true,
+                    enabled: false,
                     format: '<span style="font-size: 1.2em"><b>{point.name}</b></span><br>' +
                         '<span style="opacity: 0.6">{point.percentage:.1f} %</span>',
                     connectorColor: 'rgba(128,128,128,0.5)'
