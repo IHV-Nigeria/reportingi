@@ -916,67 +916,67 @@
             <column name="pid" type="int" defaultValue="0" >
                 <constraints nullable="false"/>
             </column>
-            <column name="State" type="varchar(255)">
+            <column name="State" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="LGA" type="varchar(255)">
+            <column name="LGA" type="varchar(100)">
                 <constraints nullable="true"/>
             </column>
-            <column name="DatimCode" type="varchar(255)">
+            <column name="DatimCode" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
             <column name="FacilityName" type="varchar(255)">
                 <constraints nullable="true"/>
             </column>
-            <column name="PatientUniqueID" type="varchar(255)">
+            <column name="PatientUniqueID" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="PatientHospitalNo" type="varchar(255)">
+            <column name="PatientHospitalNo" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="ANCNoIdentifier" type="varchar(255)">
+            <column name="ANCNoIdentifier" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="ANCNoConceptID" type="varchar(255)">
+            <column name="ANCNoConceptID" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="HTSNo" type="varchar(255)">
+            <column name="HTSNo" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="Sex" type="varchar(255)">
+            <column name="Sex" type="varchar(20)">
                 <constraints nullable="true"/>
             </column>
-            <column name="AgeAtStartOfARTYears" type="varchar(255)">
+            <column name="AgeAtStartOfARTYears" type="varchar(10)">
                 <constraints nullable="true"/>
             </column>
-            <column name="AgeAtStartOfARTMonths" type="varchar(255)">
+            <column name="AgeAtStartOfARTMonths" type="varchar(10)">
                 <constraints nullable="true"/>
             </column>
-            <column name="CareEntryPoint" type="varchar(255)">
+            <column name="CareEntryPoint" type="varchar(100)">
                 <constraints nullable="true"/>
             </column>
-            <column name="HIVConfirmedDate" type="varchar(255)">
+            <column name="HIVConfirmedDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="KPType" type="varchar(255)">
+            <column name="KPType" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="MonthsOnART" type="varchar(255)">
+            <column name="MonthsOnART" type="varchar(20)">
                 <constraints nullable="true"/>
             </column>
-            <column name="DateTransferredIn" type="varchar(255)">
+            <column name="DateTransferredIn" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="TransferInStatus" type="varchar(255)">
+            <column name="TransferInStatus" type="varchar(20)">
                 <constraints nullable="true"/>
             </column>
-            <column name="ARTStartDate" type="varchar(255)">
+            <column name="ARTStartDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="LastPickupDate" type="varchar(255)">
+            <column name="LastPickupDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="LastVisitDate" type="varchar(255)">
+            <column name="LastVisitDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
 
@@ -986,10 +986,10 @@
 
 
 
-            <column name="DaysOfARVRefil" type="varchar(255)">
+            <column name="DaysOfARVRefil" type="varchar(20)">
                 <constraints nullable="true"/>
             </column>
-            <column name="PillBalance" type="varchar(255)">
+            <column name="PillBalance" type="varchar(20)">
                 <constraints nullable="true"/>
             </column>
             <column name="InitialRegimenLine" type="varchar(255)">
@@ -998,31 +998,31 @@
             <column name="InitialRegimen" type="varchar(255)">
                 <constraints nullable="true"/>
             </column>
-            <column name="InitialCD4Count" type="varchar(255)">
+            <column name="InitialCD4Count" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="InitialCD4CountDate" type="varchar(255)">
+            <column name="InitialCD4CountDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="CurrentCD4Count" type="varchar(255)">
+            <column name="CurrentCD4Count" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="CurrentCD4CountDate" type="varchar(255)">
+            <column name="CurrentCD4CountDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="LastEACDate" type="varchar(255)">
+            <column name="LastEACDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="CurrentRegimenLine" type="varchar(255)">
+            <column name="CurrentRegimenLine" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
             <column name="CurrentRegimen" type="varchar(255)">
                 <constraints nullable="true"/>
             </column>
-            <column name="PregnancyStatus" type="varchar(255)">
+            <column name="PregnancyStatus" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="PregnancyStatusDate" type="varchar(255)">
+            <column name="PregnancyStatusDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
 
@@ -1032,49 +1032,49 @@
 
 
 
-            <column name="EDD" type="varchar(255)">
+            <column name="EDD" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="LastDeliveryDate" type="varchar(255)">
+            <column name="LastDeliveryDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="LMP" type="varchar(255)">
+            <column name="LMP" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="GestationAgeWeeks" type="varchar(255)">
+            <column name="GestationAgeWeeks" type="varchar(20)">
                 <constraints nullable="true"/>
             </column>
             <column name="CurrentViralLoad_c_ml" type="varchar(255)">
                 <constraints nullable="true"/>
             </column>
-            <column name="ViralLoadEncounterDate" type="varchar(255)">
+            <column name="ViralLoadEncounterDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="ViralLoadSampleCollectionDate" type="varchar(255)">
+            <column name="ViralLoadSampleCollectionDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="ViralLoadReportedDate" type="varchar(255)">
+            <column name="ViralLoadReportedDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="ResultDate" type="varchar(255)">
+            <column name="ResultDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="AssayDate" type="varchar(255)">
+            <column name="AssayDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="ApprovalDate" type="varchar(255)">
+            <column name="ApprovalDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="ViralLoadIndication" type="varchar(255)">
+            <column name="ViralLoadIndication" type="varchar(20)">
                 <constraints nullable="true"/>
             </column>
-            <column name="PatientOutcome" type="varchar(255)">
+            <column name="PatientOutcome" type="varchar(100)">
                 <constraints nullable="true"/>
             </column>
-            <column name="PatientOutcomeDate" type="varchar(255)">
+            <column name="PatientOutcomeDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="CurrentARTStatus" type="varchar(255)">
+            <column name="CurrentARTStatus" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
 
@@ -1097,98 +1097,40 @@
             <column name="MMDType" type="varchar(255)">
                 <constraints nullable="true"/>
             </column>
-            <column name="DateReturnedToCare" type="varchar(255)">
+            <column name="DateReturnedToCare" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="DateOfTermination" type="varchar(255)">
+            <column name="DateOfTermination" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="PharmacyNextAppointment" type="varchar(255)">
+            <column name="PharmacyNextAppointment" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="ClinicalNextAppointment" type="varchar(255)">
+            <column name="ClinicalNextAppointment" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="CurrentAgeYears" type="varchar(255)">
+            <column name="CurrentAgeYears" type="varchar(20)">
                 <constraints nullable="true"/>
             </column>
-            <column name="CurrentAgeMonths" type="varchar(255)">
+            <column name="CurrentAgeMonths" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="DateOfBirth" type="varchar(255)">
+            <column name="DateOfBirth" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="MarkAsDeseased" type="varchar(255)">
+            <column name="MarkAsDeseased" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="MarkAsDeseasedDeathDate" type="varchar(255)">
+            <column name="MarkAsDeseasedDeathDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="RegistrationPhoneNo" type="varchar(255)">
+            <column name="RegistrationPhoneNo" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="NextofKinPhoneNo" type="varchar(255)">
+            <column name="NextofKinPhoneNo" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="TreatmentSupporterPhoneNo" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-
-
-
-
-
-
-
-            <column name="BiometricCaptured" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="BiometricCaptureDate" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="ValidCapture" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="CurrentWeight_Kg" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="CurrentWeightDate" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="TBStatus" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="TBStatusDate" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="BaselineINHStartDate" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="BaselineINHStopDate" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="CurrentINHStartDate" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="CurrentINHOutcome" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="CurrentINHOutcomeDate" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="LastINHDispensedDate" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="BaselineTBTreatmentStartDate" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="BaselineTBTreatmentStopDate" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="LastViralLoadSampleCollectionFormDate" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="LastSampleTakenDate" type="varchar(255)">
+            <column name="TreatmentSupporterPhoneNo" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
 
@@ -1198,40 +1140,55 @@
 
 
 
-            <column name="OTZEnrollmentDate" type="varchar(255)">
+            <column name="BiometricCaptured" type="varchar(10)">
                 <constraints nullable="true"/>
             </column>
-            <column name="OTZOutcomeDate" type="varchar(255)">
+            <column name="BiometricCaptureDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="EnrollmentDate" type="varchar(255)">
+            <column name="ValidCapture" type="varchar(10)">
                 <constraints nullable="true"/>
             </column>
-            <column name="InitialFirstLineRegimen" type="varchar(255)">
+            <column name="CurrentWeight_Kg" type="varchar(10)">
                 <constraints nullable="true"/>
             </column>
-            <column name="InitialFirstLineRegimenDate" type="varchar(255)">
+            <column name="CurrentWeightDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="InitialSecondLineRegimen" type="varchar(255)">
+            <column name="TBStatus" type="varchar(100)">
                 <constraints nullable="true"/>
             </column>
-            <column name="InitialSecondLineRegimenDate" type="varchar(255)">
+            <column name="TBStatusDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="LastPickupDatePreviousQuarter" type="varchar(255)">
+            <column name="BaselineINHStartDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="DrugDurationPreviousQuarter" type="varchar(255)">
+            <column name="BaselineINHStopDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="PatientOutcomePreviousQuarter" type="varchar(255)">
+            <column name="CurrentINHStartDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="PatientOutcomeDatePreviousQuarter" type="varchar(255)">
+            <column name="CurrentINHOutcome" type="varchar(100)">
                 <constraints nullable="true"/>
             </column>
-            <column name="ARTStatusPreviousQuarter" type="varchar(255)">
+            <column name="CurrentINHOutcomeDate" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="LastINHDispensedDate" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="BaselineTBTreatmentStartDate" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="BaselineTBTreatmentStopDate" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="LastViralLoadSampleCollectionFormDate" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="LastSampleTakenDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
 
@@ -1241,19 +1198,62 @@
 
 
 
-            <column name="QuantityOfARVDispensedLastVisit" type="varchar(255)">
+            <column name="OTZEnrollmentDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="FrequencyOfARVDispensedLastVisit" type="varchar(255)">
+            <column name="OTZOutcomeDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="CurrentARTStatusWithPillBalance" type="varchar(255)">
+            <column name="EnrollmentDate" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="RecaptureDate" type="varchar(255)">
+            <column name="InitialFirstLineRegimen" type="varchar(100)">
                 <constraints nullable="true"/>
             </column>
-            <column name="RecaptureCount" type="varchar(255)">
+            <column name="InitialFirstLineRegimenDate" type="varchar(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="InitialSecondLineRegimen" type="varchar(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="InitialSecondLineRegimenDate" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="LastPickupDatePreviousQuarter" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="DrugDurationPreviousQuarter" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="PatientOutcomePreviousQuarter" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="PatientOutcomeDatePreviousQuarter" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="ARTStatusPreviousQuarter" type="varchar(100)">
+                <constraints nullable="true"/>
+            </column>
+
+
+
+
+
+
+
+            <column name="QuantityOfARVDispensedLastVisit" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="FrequencyOfARVDispensedLastVisit" type="varchar(10)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="CurrentARTStatusWithPillBalance" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="RecaptureDate" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="RecaptureCount" type="varchar(10)">
                 <constraints nullable="true"/>
             </column>
 
