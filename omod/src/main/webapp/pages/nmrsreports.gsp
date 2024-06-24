@@ -51,7 +51,7 @@
 <div class="tab">
 
     <button class="tablinks" onclick="openTab(event, 'dashboard')"
-            id="defaultOpen">Reports Dashboardd</button>
+            id="defaultOpen">Reports Dashboard</button>
     <button class="tablinks" onclick="openTab(event, 'reports')">Report Line Listings</button>
     <button class="tablinks" onclick="openTab(event, 'encounters')">Search for Encounter</button>
 

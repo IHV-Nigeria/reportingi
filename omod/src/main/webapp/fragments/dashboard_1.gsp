@@ -23,7 +23,114 @@
         
         
         <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-            <div style="width: 32%; margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+              
+              <div style="background-color: white; border-radius: 0.5rem; padding: 1.5rem 2.5rem; flex: 1; margin-right: 20px;">
+                <div style="text-align: left;">
+                  <h2 style="font-size: 1.5rem; font-weight: 500; color: black; margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    Total Enrolled
+                  </h2><i class="flaticon-users-1 black" style="font-size: 25px;"></i>
+                  <p style="font-size: 0.875rem; color: #6B7280; margin-top: 0.5rem; display: none">
+                    Add description if necessary
+                  </p>
+                  <p>
+                    <span id="totalPatients" style="font-size: 2rem; font-weight: 300; color: #000000;">
+                      25
+                    </span>
+                    <span style="font-size: 1rem; font-weight: 500; color: #6B7280;">
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              <div style="background-color: white; border-radius: 0.5rem; padding: 1.5rem 2.5rem; flex: 1; margin-right: 20px;">
+                <div style="text-align: left;">
+                  <h2 style="font-size: 1.5rem; font-weight: 500; color: teal; margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    Total HTS
+                  </h2><i class="flaticon2-hourglass-1 teal" style="font-size: 25px;"></i>
+                  <p style="font-size: 0.875rem; color: #6B7280; margin-top: 0.5rem; display: none">
+                    Add description if necessary
+                  </p>
+                  <p>
+                    <span id="totalHTSPatients" style="font-size: 2rem; font-weight: 300; color: #000000;">
+                      25
+                    </span>
+                    <span style="font-size: 1rem; font-weight: 500; color: #6B7280;">
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              <div style="background-color: white; border-radius: 0.5rem; padding: 1.5rem 2.5rem; flex: 1; margin-right: 20px;">
+                <div style="text-align: left;">
+                  <h2 style="font-size: 1.5rem; font-weight: 500; color: purple; margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    Total Recency
+                  </h2><i class="flaticon-upload purple" style="font-size: 25px;"></i>
+                  <p style="font-size: 0.875rem; color: #6B7280; margin-top: 0.5rem; display: none">
+                    Add description if necessary
+                  </p>
+                  <p>
+                    <span id="totalRecencyPatients" style="font-size: 2rem; font-weight: 300; color: #000000;">
+                      -
+                    </span>
+                    <span style="font-size: 1rem; font-weight: 500; color: #6B7280;">
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              <div style="background-color: white; border-radius: 0.5rem; padding: 1.5rem 2.5rem; flex: 1; margin-right: 20px;">
+                <div style="text-align: left;">
+                  <h2 style="font-size: 1.5rem; font-weight: 500; color: orange; margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    Total PBS
+                  </h2><i class="flaticon2-list-3 orange" style="font-size: 25px;"></i>
+                  <p style="font-size: 0.875rem; color: #6B7280; margin-top: 0.5rem; display: none">
+                    Add description if necessary
+                  </p>
+                  <p>
+                    <span id="totalPBS" style="font-size: 2rem; font-weight: 300; color: #000000;">
+                      -
+                    </span>
+                    <span style="font-size: 1rem; font-weight: 500; color: #6B7280;">
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              <div style="background-color: white; border-radius: 0.5rem; padding: 1.5rem 2.5rem; flex: 1; margin-right: 20px;">
+                <div style="text-align: left;">
+                  <h2 style="font-size: 1.5rem; font-weight: 500; color: purple; margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    LL
+                  </h2><i class="flaticon-upload purple" style="font-size: 25px;"></i>
+                  <p style="font-size: 0.875rem; color: #6B7280; margin-top: 0.5rem; display: none">
+                    Add description if necessary
+                  </p>
+                  <p>
+                    <span id="LL" style="font-size: 2rem; font-weight: 300; color: #000000;">
+                      -
+                    </span>
+                    <span style="font-size: 1rem; font-weight: 500; color: #6B7280;">
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+<div class="horizontal-line" style="border-top: 1px solid #CCCCCC; width: 100%; margin: 10px 0;"></div>
+            
+
+
+
+
+        <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+            <div style="width: 50%; margin-bottom: 20px;">
               <figure class="highcharts-figure">
                 <div id="containeras"></div>
                 <p class="highcharts-description" style="align-items: center">
@@ -32,7 +139,7 @@
               </figure>
             </div>
             
-            <div style="width: 32%; margin-bottom: 20px;">
+            <div style="width: 50%; margin-bottom: 20px;">
               <figure class="highcharts-figure">
                 <div id="containercolIIT"></div>
                 <p class="highcharts-description" style="align-items: center">
@@ -44,94 +151,10 @@
             
             
             
-            
-            
-            
-            
-            <div style="width: 32%; margin-bottom: 5px; background-color: #f8f9fa; display: flex; justify-content: center; align-items: center;  padding: 0px;">
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
-                  <div style="background-color: white; border-radius: 0.5rem; padding: 1.5rem 2.5rem;">
-                    <div style="text-align: left;">
-                      <h2 style="font-size: 1.5rem; font-weight: 500; color: black; margin-bottom: 0.5rem;">
-                        Total Enrolled
-                      </h2><i class="flaticon-users-1 black" style="font-size: 25px;"></i>
-                      <p style="font-size: 0.875rem; color: #6B7280; margin-top: 0.5rem; display: none">
-                        Add description if necessary
-                      </p>
-                      <p>
-                        <span id="totalPatients" style="font-size: 2rem; font-weight: 300; color: #000000;">
-                          25
-                        </span>
-                        <span style="font-size: 1rem; font-weight: 500; color: #6B7280;">
+         
 
-</span>
-                      </p>
-                    </div>
-                  </div>
-                  <!-- Repeat the above code three more times for a total of four similar cards -->
-                  <div style="background-color: white; border-radius: 0.5rem; padding: 1.5rem 2.5rem;">
-                    <div style="text-align: left;">
-                      <h2 style="font-size: 1.5rem; font-weight: 500; color: teal; margin-bottom: 0.5rem;">
-                        Total HTS
-                      </h2><i class="flaticon2-hourglass-1 teal" style="font-size: 25px;"></i>
-                      <p style="font-size: 0.875rem; color: #6B7280; margin-top: 0.5rem; display: none">
-                        Add description if necessary
-                      </p>
-                      <p>
-                        <span id="totalHTSPatients" style="font-size: 2rem; font-weight: 300; color: #000000;">
-                          25
-                        </span>
-                        <span style="font-size: 1rem; font-weight: 500; color: #6B7280;">
-</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div style="background-color: white; border-radius: 0.5rem; padding: 1.5rem 2.5rem;">
-                    <div style="text-align: left;">
-                      <h2 style="font-size: 1.5rem; font-weight: 500; color: purple; margin-bottom: 0.5rem;">
-                        Total Recency
-                      </h2><i class="flaticon-upload purple" style="font-size: 25px;"></i>
-                      <p style="font-size: 0.875rem; color: #6B7280; margin-top: 0.5rem; display: none">
-                        Add description if necessary
-                      </p>
-                      <p>
-                        <span id="totalRecencyPatients" style="font-size: 2rem; font-weight: 300; color: #000000;">
-                          -
-                        </span>
-                        <span style="font-size: 1rem; font-weight: 500; color: #6B7280;">
-</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div style="background-color: white; border-radius: 0.5rem; padding: 1.5rem 2.5rem;">
-                    <div style="text-align: left;">
-                      <h2 style="font-size: 1.5rem; font-weight: 500; color: orange; margin-bottom: 0.5rem;">
-                        Total PBS
-                      </h2><i class="flaticon2-list-3 orange" style="font-size: 25px;"></i>
-                      <p style="font-size: 0.875rem; color: #6B7280; margin-top: 0.5rem; display: none">
-                        Add description if necessary
-                      </p>
-                      <p>
-                        <span id="totalPBS" style="font-size: 2rem; font-weight: 300; color: #000000;">
-                          -
-                        </span>
-                        <span style="font-size: 1rem; font-weight: 500; color: #6B7280;">
-</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            
-            
-            
-            
-            
-            
-            
-            
-            
+<div class="horizontal-line" style="border-top: 1px solid #CCCCCC; width: 100%; margin: 10px 0;"></div>
+         
             
             
             
@@ -155,8 +178,12 @@
               </figure>
             </div>
             
-            <div class="horizontal-line" style="border-top: 1px solid #CCCCCC; width: 100%; margin: 10px 0;"></div>
+
+
+<div class="horizontal-line" style="border-top: 1px solid #CCCCCC; width: 100%; margin: 10px 0;"></div>
             
+
+
             <div style="width: 50%; margin-bottom: 20px;">
               <figure class="highcharts-figure">
                 <div id="containereaca"></div>
@@ -174,6 +201,12 @@
                 </p>
               </figure>
             </div>
+
+
+
+<div class="horizontal-line" style="border-top: 1px solid #CCCCCC; width: 100%; margin: 10px 0;"></div>
+
+
 
             <div style="width: 50%; margin-bottom: 20px;">
               <figure class="highcharts-figure">
