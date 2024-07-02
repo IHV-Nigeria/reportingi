@@ -101,7 +101,7 @@
                 <div style="text-align: left;">
                   <h2 style="font-size: 1.5rem; font-weight: 500; color: purple; margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                     Download ART Linelist
-                  </h2><i class="flaticon-upload purple" style="font-size: 25px;"></i>
+                  </h2><i class="flaticon-download purple" style="font-size: 25px;"></i>
                   <p style="font-size: 0.875rem; color: #6B7280; margin-top: 0.5rem; display: none">
                     Add description if necessary
                   </p>
