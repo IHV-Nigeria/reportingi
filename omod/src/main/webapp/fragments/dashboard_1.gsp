@@ -97,17 +97,17 @@
                 </div>
               </div>
 
-              <div style="background-color: white; border-radius: 0.5rem; padding: 1.5rem 2.5rem; flex: 1; margin-right: 20px;">
+              <div style="background-color: #f1f1f1; border: 2px solid white; cursor: pointer; border-radius: 0.5rem; padding: 1.5rem 2.5rem; flex: 1; margin-right: 20px;">
                 <div style="text-align: left;">
                   <h2 style="font-size: 1.5rem; font-weight: 500; color: purple; margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                    LL
+                    Download ART Linelist
                   </h2><i class="flaticon-upload purple" style="font-size: 25px;"></i>
                   <p style="font-size: 0.875rem; color: #6B7280; margin-top: 0.5rem; display: none">
                     Add description if necessary
                   </p>
                   <p>
                     <span id="LL" style="font-size: 2rem; font-weight: 300; color: #000000;">
-                      -
+                      Processing...
                     </span>
                     <span style="font-size: 1rem; font-weight: 500; color: #6B7280;">
                     </span>
