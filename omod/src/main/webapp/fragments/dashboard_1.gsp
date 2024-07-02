@@ -96,9 +96,8 @@
                   </p>
                 </div>
               </div>
-
-              <div style="background-color: #f1f1f1; border: 2px solid white; cursor: pointer; border-radius: 0.5rem; padding: 1.5rem 2.5rem; flex: 1; margin-right: 20px;">
-                <div style="text-align: left;">
+              <div style="background-color: #f1f1f1; border: 2px solid white; cursor: pointer; border-radius: 0.5rem; padding: 1.5rem 2.5rem; flex: 1; margin-right: 20px;" onclick="dALL()">
+              <div style="text-align: left;">
                   <h2 style="font-size: 1.5rem; font-weight: 500; color: purple; margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                     Download ART Linelist
                   </h2><i class="flaticon-download purple" style="font-size: 25px;"></i>
@@ -373,4 +372,9 @@
     }
 
 
+</script>
+<script>
+function dALL() {
+  alert("download ART linelist")
+}
 </script>
