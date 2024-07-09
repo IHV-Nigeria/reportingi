@@ -88,8 +88,8 @@ const counts = {
   }
 };
     
-    getCv19Data();
-    function getCv19Data(){
+    getARTData();
+    function getARTData(){
 
           myAjax({}, '${ ui.actionLink("nmrsreports", "ARTParams", "getAllARTParamsData") }').then(function(response){
             AllARTParamsData = JSON.parse(response);
