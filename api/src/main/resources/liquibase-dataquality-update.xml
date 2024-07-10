@@ -967,7 +967,7 @@
             <column name="DateTransferredIn" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="TransferInStatus" type="varchar(35)">
+            <column name="TransferInStatus" type="varchar(45)">
                 <constraints nullable="true"/>
             </column>
             <column name="ARTStartDate" type="varchar(50)">
