@@ -20,6 +20,11 @@
 <% ui.includeJavascript("nmrsreports", "bootstrap.bundle.js") %>
 <% ui.includeJavascript("nmrsreports", "site.js") %>
 <% ui.includeJavascript("nmrsreports", "jquery.dataTables.min.js") %>
+<% ui.includeJavascript("nmrsreports", "buttons.dataTables.min.js") %>
+<% ui.includeJavascript("nmrsreports", "jszip.min.js") %>
+<% ui.includeJavascript("nmrsreports", "buttons.html5.min.js") %>
+
+
 <% ui.includeJavascript("nmrsreports", "jquery-ui.js") %>
 <% ui.includeJavascript("nmrsreports", "myAjax.js") %>
 <% ui.includeJavascript("nmrsreports", "core.js") %>
@@ -87,6 +92,11 @@ const counts = {
     }],
   }
 };
+let CurrentARTStatusActiveList = [];
+let BiometricCapturedYesList = [];
+let BiometricCapturedNoList = [];
+let ValidCaptureYesList = [];
+let ValidCaptureNoList = [];
     
     getARTData();
     function getARTData(){
@@ -103,18 +113,23 @@ const counts = {
             for (const obj of AllARTParamsData) {
               if (obj.CurrentARTStatus === "Active") {
                 counts.CurrentARTStatusActive++;
+                CurrentARTStatusActiveList.push(obj);
               }
               if (obj.BiometricCaptured === "Yes") {
                 counts.BiometricCapturedYes++;
+                BiometricCapturedYesList.push(obj);
               }
               if (obj.BiometricCaptured === "No") {
                 counts.BiometricCapturedNo++;
+                BiometricCapturedNoList.push(obj);
               }
               if (obj.ValidCapture === "Yes") {
                 counts.ValidCaptureYes++;
+                ValidCaptureYesList.push(obj);
               }
               if (obj.ValidCapture === "No") {
                 counts.ValidCaptureNo++;
+                ValidCaptureNoList.push(obj);
               }
               const recaptureCount = obj.RecaptureCount;
                 if (recaptureCount !== null && recaptureCount !== undefined) {
@@ -205,6 +220,7 @@ const counts = {
                     }
                 } else {/*undefined*/}
             }
+            
             console.log("log here");
             console.log(counts.BiometricCapturedYes);
             console.log("log here again");
@@ -449,15 +465,24 @@ const counts = {
                 },
                 plotOptions: {
                     column: {
+                        cursor: 'pointer',
                         dataLabels: {
                             enabled: true,
-                            format: '<b>{point.y}</b>', // Update the data label format
+                            format: '<b>{point.y}</b>',
                             style: {
                                 fontSize: '1.2em'
+                            }
+                        },
+                        point: {
+                            events: {
+                                click: function() {
+                                    showClientModal(this.category, this.y);
+                                }
                             }
                         }
                     }
                 },
+
                 series: [
                     {
                         name: 'PBS Capture',
@@ -981,6 +1006,45 @@ const counts = {
         
 
 
+        function showClientModal(category, count) {
+            let tableHtml = '<table id="clientTable" ><thead style="color: white;"><tr><th>Patient ID</th><th>Sex</th><th>Enrollment Date</th><th>ART Start Date</th><th>Last Pickup Date</th><th>Phone Number</th><th>Next of Kin Number</th></tr></thead><tbody>';            
+            BiometricCapturedNoList.forEach(patient => {
+                if (patient != null) {
+                    tableHtml += "<tr><td>" + (patient.PatientUniqueID || '') + "</td><td>" + (patient.Sex || '') + "</td><td>" + (patient.EnrollmentDate || '') + "</td><td>" + (patient.ARTStartDate || '') + "</td><td>" + (patient.LastPickupDate || '') + "</td><td>" + (patient.RegistrationPhoneNo || '') + "</td><td>" + (patient.NextofKinPhoneNo || '') + "</td></tr>";
+                }
+            });
+
+            tableHtml += '</tbody></table>';
+            
+            // Show modal
+            \$('#clientModal .modal-title').text(category + ' (' + count + ' patients)');
+            \$('#clientModal .modal-body').html(tableHtml);
+            
+            // Initialize DataTable
+            \$('#clientTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy',
+                    {
+                        extend: 'excelHtml5',
+                        text: 'Download as Excel',
+                        className: 'btn btn-light'
+                    }
+                ]
+            });
+            
+            \$('#clientModal').modal('show');
+        }
+
+
+
+
+
+
+
+
+
+        console.log("activePatients no baseline PBS", BiometricCapturedNoList);
 
 
 </script>

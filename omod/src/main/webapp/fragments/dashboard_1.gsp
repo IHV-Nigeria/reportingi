@@ -14,6 +14,42 @@
 
     </style>
 
+
+  <style>
+    
+    .modal-dialog {
+    margin: 0 auto;
+    max-width: 1000px;
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1rem);
+    }
+
+
+    .modal-wide .modal-body table {
+        width: 100%;
+        max-width: 100%;
+        table-layout: auto;
+    }
+
+    .modal-wide .modal-body {
+        padding: 20px; 
+    }
+
+
+    .modal-dialog-centered {
+        display: flex;
+        align-items: center;
+        min-height: calc(100% - 1rem); 
+    }
+
+
+    .table-centered {
+        margin: 0 auto;
+    }
+
+  </style>
+
     <div class="container-fluid bg-light ">
         <div class="row text-center title">
             <h4 style="text-align: center">Report Dashboard</h4>
@@ -259,6 +295,28 @@
         
     </div>
 </div>
+
+
+
+
+    <div id="clientModal" class="modal fade modal-wide" tabindex="-1" role="dialog" aria-labelledby="clientModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
 <script>
     jqq = jQuery;
     getDashboardData();
