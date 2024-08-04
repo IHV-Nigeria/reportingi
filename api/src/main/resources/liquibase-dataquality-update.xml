@@ -1276,6 +1276,27 @@
             </createIndex>
     </changeSet>
     
+    <!-- Artlinelist  -->
+    <changeSet id="report_update_202407301144" author="Adebawo">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM reporting_report_design WHERE report_definition_uuid='94d55c26-e7d3-4820-b50d-35c6d95e41c6';
+            </sqlCheck>
+        </preConditions>
+        <!-- Excel -->
+        <insert tableName="reporting_report_design">
+            <column name="uuid" value="362f1b79-03cb-4b31-9968-1b64955187d3"/>
+            <column name="name" value="Excel"/>
+            <column name="description" value="Excel Export"/>
+            <column name="renderer_type" value="org.openmrs.module.reporting.report.renderer.XlsReportRenderer"/>
+            <column name="properties" value="#Tue Jul 30 11:25:05 BST 2024"/>
+            <column name="creator" value="1"/>
+            <column name="date_created" valueDate="2024-07-30 11:25:05"/>
+            <column name="retired" value="0"/>
+            <column name="report_definition_uuid" value="94d55c26-e7d3-4820-b50d-35c6d95e41c6"/>
+        </insert>
+    </changeSet>
+    
     <!-- Force export type for Data Entry Statistics to show -->
     <changeSet id='report_update_202105160127' author='Bright'>
         <sql>

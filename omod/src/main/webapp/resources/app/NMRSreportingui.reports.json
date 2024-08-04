@@ -260,6 +260,16 @@
                   "url": "reportingui/runReport.page?reportDefinition=b2f5693e-e326-47de-a1a7-d24eed174ef1",
                   "order": 27,
                   "requiredPrivilege": "App: reportingui.reports"
+              },
+           
+             {
+                  "id": "Artlinelist",
+                  "extensionPointId": "org.openmrs.module.reportingui.reports.monitoring",
+                  "type": "link",
+                  "label": "Artlinelist Latest",
+                  "url": "reportingui/runReport.page?reportDefinition=94d55c26-e7d3-4820-b50d-35c6d95e41c6",
+                  "order": 28,
+                  "requiredPrivilege": "App: reportingui.reports"
               }
 
 
