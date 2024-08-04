@@ -97,6 +97,15 @@ let BiometricCapturedYesList = [];
 let BiometricCapturedNoList = [];
 let ValidCaptureYesList = [];
 let ValidCaptureNoList = [];
+
+let PBSGapAnalysis = {
+  TX_Curr: [],
+  'No Baseline PBS': [],
+  'No Recapture': [],
+  'Invalid Capture': []
+};
+
+
     
     getARTData();
     function getARTData(){
@@ -113,6 +122,7 @@ let ValidCaptureNoList = [];
             for (const obj of AllARTParamsData) {
               if (obj.CurrentARTStatus === "Active") {
                 counts.CurrentARTStatusActive++;
+                PBSGapAnalysis.TX_Curr.push(obj);
                 CurrentARTStatusActiveList.push(obj);
               }
               if (obj.BiometricCaptured === "Yes") {
@@ -121,6 +131,7 @@ let ValidCaptureNoList = [];
               }
               if (obj.BiometricCaptured === "No") {
                 counts.BiometricCapturedNo++;
+                PBSGapAnalysis['No Baseline PBS'].push(obj);
                 BiometricCapturedNoList.push(obj);
               }
               if (obj.ValidCapture === "Yes") {
@@ -129,6 +140,7 @@ let ValidCaptureNoList = [];
               }
               if (obj.ValidCapture === "No") {
                 counts.ValidCaptureNo++;
+                PBSGapAnalysis['Invalid Capture'].push(obj);
                 ValidCaptureNoList.push(obj);
               }
               const recaptureCount = obj.RecaptureCount;
@@ -1008,7 +1020,7 @@ let ValidCaptureNoList = [];
 
         function showClientModal(category, count) {
             let tableHtml = '<table id="clientTable" ><thead style="color: white;"><tr><th>Patient ID</th><th>Sex</th><th>Enrollment Date</th><th>ART Start Date</th><th>Last Pickup Date</th><th>Phone Number</th><th>Next of Kin Number</th></tr></thead><tbody>';            
-            BiometricCapturedNoList.forEach(patient => {
+            PBSGapAnalysis[category].forEach(patient => {
                 if (patient != null) {
                     tableHtml += "<tr><td>" + (patient.PatientUniqueID || '') + "</td><td>" + (patient.Sex || '') + "</td><td>" + (patient.EnrollmentDate || '') + "</td><td>" + (patient.ARTStartDate || '') + "</td><td>" + (patient.LastPickupDate || '') + "</td><td>" + (patient.RegistrationPhoneNo || '') + "</td><td>" + (patient.NextofKinPhoneNo || '') + "</td></tr>";
                 }
