@@ -232,6 +232,45 @@ let PBSGapAnalysis = {
                     }
                 } else {/*undefined*/}
             }
+
+           
+            const statusOptions = ["", "Active", "Death", "Discontinued Care", "InActive", "Lost to followup", "Transferred out"];
+
+            const groupedARTData = statusOptions.reduce((acc, status) => {
+            acc[status] = AllARTParamsData
+                .filter(patient => patient.CurrentARTStatus === status)
+                .map(patient => ({
+                id: patient.PatientId,
+                status: patient.CurrentARTStatus,
+                // Add other relevant fields you want to include
+                }));
+            return acc;
+            }, {});
+
+            console.log("with statusOptions:", groupedARTData);
+
+
+            const statusCounts = {};
+
+            statusOptions.forEach(status => {
+            statusCounts[status] = groupedARTData[status].length;
+            });
+            console.log("statusCounts:", statusCounts);
+
+            const statusCountsArray = [
+            { name: 'Blanks', y: statusCounts[''] || 0 },
+            { name: 'Active', y: statusCounts['Active'] || 0 },
+            { name: 'Death', y: statusCounts['Death'] || 0 },
+            { name: 'Discontinued Care', y: statusCounts['Discontinued Care'] || 0 },
+            { name: 'InActive', y: statusCounts['InActive'] || 0 },
+            { name: 'Lost to followup', y: statusCounts['Lost to followup'] || 0 },
+            { name: 'Transferred out', y: statusCounts['Transferred out'] || 0 }
+            ];
+            console.log("statusCountsArray:", statusCountsArray);
+
+            
+
+            
             
             console.log("log here");
             console.log(counts.BiometricCapturedYes);
@@ -735,6 +774,47 @@ let PBSGapAnalysis = {
                     data: [5, 2, 1, 2] // Update the data values
                 }]
             });
+
+
+
+            // Build the chart
+            Highcharts.chart('containerpi', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'CTD Tracking',
+                    align: 'center'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<span style="font-size: 1.2em"><b>{point.name}</b></span><br>' +
+                                '<span style="opacity: 0.6">{point.percentage:.1f} %</span>',
+                            connectorColor: 'rgba(128,128,128,0.5)'
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Share',
+                    data: statusCountsArray
+
+                }]
+            });
             
             
 
@@ -913,46 +993,7 @@ let PBSGapAnalysis = {
 
 
 
-    // Build the chart
-    Highcharts.chart('containerpi', {
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
-        },
-        title: {
-            text: 'CTD Tracking',
-            align: 'center'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        accessibility: {
-            point: {
-                valueSuffix: '%'
-            }
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: false,
-                    format: '<span style="font-size: 1.2em"><b>{point.name}</b></span><br>' +
-                        '<span style="opacity: 0.6">{point.percentage:.1f} %</span>',
-                    connectorColor: 'rgba(128,128,128,0.5)'
-                }
-            }
-        },
-        series: [{
-            name: 'Share',
-            data: [
-                { name: 'Clients Being Tracked', y: 938899 },
-                { name: 'Clients without Outcome', y: 1229600 }
-            ]
-        }]
-    });
+    
     
 
    
