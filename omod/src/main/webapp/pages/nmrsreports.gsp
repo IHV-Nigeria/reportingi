@@ -121,9 +121,9 @@ let groupedARTData2 = {
 
           myAjax({}, '${ ui.actionLink("nmrsreports", "ARTParams", "getAllARTParamsData") }').then(function(response){
             AllARTParamsData = JSON.parse(response);
-            console.log("back in nmrsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
+            console.log("location");
             console.log(AllARTParamsData);
-            console.log("back in nmrss sommmmmmmmmmmmmmmmmmmmmmeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+            console.log("back in nmrs");
             // Initialize the counts object
             
 
