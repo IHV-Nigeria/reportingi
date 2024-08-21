@@ -165,6 +165,7 @@
 
 
         <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+            <div style="display: none">
             <div style="width: 50%; margin-bottom: 20px;">
               <figure class="highcharts-figure">
                 <div id="containeras"></div>
@@ -172,6 +173,7 @@
                   <strong></strong>
                 </p>
               </figure>
+            </div>
             </div>
             
             <div style="width: 50%; margin-bottom: 20px;">
@@ -183,6 +185,14 @@
               </figure>
             </div>
             
+            <div style="width: 50%; margin-bottom: 20px;">
+              <figure class="highcharts-figure">
+                <div id="containerpi"></div>
+                <p class="highcharts-description" style="align-items: center">
+                  <strong></strong>
+                </p>
+              </figure>
+            </div>
             
             
             
@@ -193,7 +203,14 @@
             
             
             
-            
+            <div style="width: 50%; margin-bottom: 20px;">
+              <figure class="highcharts-figure">
+                <div id="containerPBSTrend"></div>
+                <p class="highcharts-description" style="align-items: center">
+                  <strong></strong>
+                </p>
+              </figure>
+            </div>
             
             <div style="width: 50%; margin-bottom: 20px;">
               <figure class="highcharts-figure">
@@ -204,14 +221,7 @@
               </figure>
             </div>
             
-            <div style="width: 50%; margin-bottom: 20px;">
-              <figure class="highcharts-figure">
-                <div id="containerPBSTrend"></div>
-                <p class="highcharts-description" style="align-items: center">
-                  <strong></strong>
-                </p>
-              </figure>
-            </div>
+            
             
 
 
@@ -264,15 +274,6 @@
             <div style="width: 67%; margin-bottom: 20px; display: none">
               <figure class="highcharts-figure">
                 <div id="containercom"></div>
-                <p class="highcharts-description" style="align-items: center">
-                  <strong></strong>
-                </p>
-              </figure>
-            </div>
-
-            <div style="width: 50%; margin-bottom: 20px;">
-              <figure class="highcharts-figure">
-                <div id="containerpi"></div>
                 <p class="highcharts-description" style="align-items: center">
                   <strong></strong>
                 </p>

@@ -105,6 +105,15 @@ let PBSGapAnalysis = {
   'Invalid Capture': []
 };
 
+let IITAnalysis = {
+  'Potential IIT (1 Week)': [],
+  'IIT': []
+};
+
+let groupedARTData2 = {
+  'Clients without Tracking': [],
+  'Active': []
+};
 
     
     getARTData();
@@ -144,14 +153,17 @@ let PBSGapAnalysis = {
                 ValidCaptureNoList.push(obj);
               }
               const recaptureCount = obj.RecaptureCount;
+
                 if (recaptureCount !== null && recaptureCount !== undefined) {
                     if (counts.RecaptureCounts[recaptureCount]) {
                     counts.RecaptureCounts[recaptureCount]++;
                     } else {
                     counts.RecaptureCounts[recaptureCount] = 1;
                     }
+                    
                 } else {
                     if (counts.RecaptureCounts[null]) {
+                        
                         if(obj.ARTStartDate != "" && obj.ARTStartDate == obj.LastPickupDate){
                             //console.log("ARTStartDate")
                             //console.log(obj.ARTStartDate)
@@ -174,6 +186,7 @@ let PBSGapAnalysis = {
                             if(differenceInDays>initARVDays){
                             //console.log("eligible");
                             counts.RecaptureCounts[null]++;
+                            PBSGapAnalysis['No Recapture'].push(obj);
                             }
                             //console.log("differenceInDays");
                             //console.log(differenceInDays);
@@ -186,6 +199,7 @@ let PBSGapAnalysis = {
                             
                         }
                     } else {
+                        
                         if(obj.ARTStartDate != "" && obj.ARTStartDate == obj.LastPickupDate){
                             //console.log("ARTStartDate")
                             //console.log(obj.ARTStartDate)
@@ -231,10 +245,47 @@ let PBSGapAnalysis = {
                     counts.currentViralLoad.LLV.push(obj.pid);
                     }
                 } else {/*undefined*/}
+
+                //IIT
+                if(obj.ARTStartDate != ""){
+                    //console.log("ARTStartDate")
+                    //console.log(obj.ARTStartDate)
+                    //console.log("LastPickupDate")
+                    //console.log(obj.LastPickupDate)
+                    //console.log("currentDate")
+                    const currentDate = new Date();
+                    //console.log(currentDate)
+                    //console.log("DaysOfARVRefil")
+                    //console.log(obj.DaysOfARVRefil)
+
+                    const LPD = new Date(obj.LastPickupDate);
+                    const differenceInMilliseconds = currentDate - LPD;
+                    const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
+                    const lastARVDays = obj.DaysOfARVRefil;
+                    
+                    if(differenceInDays>(lastARVDays + 28)){
+                    //LTFU
+                    IITAnalysis['IIT'].push(obj);
+                    }
+                    else if((differenceInDays + 7)>lastARVDays){
+                    //Potential IIT 7 days
+                    IITAnalysis['Potential IIT (1 Week)'].push(obj);
+                    }
+                }
+
+                //let groupedARTData2
+                if(obj.CurrentARTStatus == "InActive"){
+                    groupedARTData2['Clients without Tracking'].push(obj);
+                }
+                if(obj.CurrentARTStatus == "Active"){
+                    groupedARTData2['Active'].push(obj);
+                }
+
             }
 
            
-            const statusOptions = ["", "Active", "Death", "Discontinued Care", "InActive", "Lost to followup", "Transferred out"];
+            //const statusOptions = ["", "Active", "Death", "Discontinued Care", "InActive", "Lost to followup", "Transferred out"];
+            const statusOptions = ["Active", "InActive"];
 
             const groupedARTData = statusOptions.reduce((acc, status) => {
             acc[status] = AllARTParamsData
@@ -257,6 +308,7 @@ let PBSGapAnalysis = {
             });
             console.log("statusCounts:", statusCounts);
 
+            /*
             const statusCountsArray = [
             { name: 'Blanks', y: statusCounts[''] || 0 },
             { name: 'Active', y: statusCounts['Active'] || 0 },
@@ -265,6 +317,11 @@ let PBSGapAnalysis = {
             { name: 'InActive', y: statusCounts['InActive'] || 0 },
             { name: 'Lost to followup', y: statusCounts['Lost to followup'] || 0 },
             { name: 'Transferred out', y: statusCounts['Transferred out'] || 0 }
+            ];
+            */
+            const statusCountsArray = [
+            { name: 'Active', y: statusCounts['Active'] || 0 },
+            { name: 'Clients without Tracking', y: statusCounts['InActive'] || 0 }
             ];
             console.log("statusCountsArray:", statusCountsArray);
 
@@ -441,18 +498,19 @@ let PBSGapAnalysis = {
 
 
 
-
+            var potentialIIT1week = IITAnalysis['Potential IIT (1 Week)'].length;
+            var IIT = IITAnalysis['IIT'].length;
             // Modify the series data with dynamically supplied values
             const chart2 = Highcharts.chart('containercolIIT', {
                 chart: {
                     type: 'column'
                 },
                 title: {
-                    text: 'Potential IIT',
+                    text: 'IIT Tracking',
                     align: 'center'
                 },
                 xAxis: {
-                    categories: ['Potential IIT (1 Week)', 'Potential IIT (1 Month)'],
+                    categories: ['Potential IIT (1 Week)', 'IIT'],
                     crosshair: true,
                     accessibility: {
                         description: 'Countries'
@@ -469,21 +527,32 @@ let PBSGapAnalysis = {
                 },
                 plotOptions: {
                     column: {
+                        cursor: 'pointer',
                         dataLabels: {
-                            enabled: false,
-                            format: '<b>{point.y}</b>', // Update the data label format
+                            enabled: true,
+                            format: '<b>{point.y}</b>',
                             style: {
                                 fontSize: '1.2em'
+                            }
+                        },
+                        point: {
+                            events: {
+                                click: function() {
+                                    showClientModal(this.category, this.y, IITAnalysis);
+                                }
                             }
                         }
                     }
                 },
                 series: [
                     {
-                        name: 'Potential IIT',
-                        data: [12, 23]
+                        name: 'IIT Tracking',
+                        data: [potentialIIT1week, IIT]
                     }
-                ]
+                ],
+                credits: {
+                    enabled: false
+                }
             });
 
 
@@ -527,7 +596,7 @@ let PBSGapAnalysis = {
                         point: {
                             events: {
                                 click: function() {
-                                    showClientModal(this.category, this.y);
+                                    showClientModal(this.category, this.y, PBSGapAnalysis);
                                 }
                             }
                         }
@@ -539,7 +608,10 @@ let PBSGapAnalysis = {
                         name: 'PBS Capture',
                         data: dataValues
                     }
-                ]
+                ],
+                credits: {
+                    enabled: false
+                }
             });
 
 
@@ -579,7 +651,10 @@ let PBSGapAnalysis = {
                 series: [{
                     name: '',
                     data: resultValues
-                }]
+                }],
+                credits: {
+                    enabled: false
+                }
             });
             
 
@@ -660,7 +735,10 @@ let PBSGapAnalysis = {
                 series: [{
                     name: 'Count',
                     data: [tx_curr, Unsuppressed, LLV] // Update the data values
-                }]
+                }],
+                credits: {
+                    enabled: false
+                }
             });
 
 
@@ -699,7 +777,10 @@ let PBSGapAnalysis = {
                 series: [{
                     name: 'Count',
                     data: [eligibleForEAC, notCommencedEAC, 23, 20] // Update the data values
-                }]
+                }],
+                credits: {
+                    enabled: false
+                }
             });
 
 
@@ -736,7 +817,10 @@ let PBSGapAnalysis = {
                 series: [{
                     name: 'Count',
                     data: [20, 12, 3, 5] // Update the data values
-                }]
+                }],
+                credits: {
+                    enabled: false
+                }
             });
 
             Highcharts.chart('containereacd', {
@@ -772,7 +856,10 @@ let PBSGapAnalysis = {
                 series: [{
                     name: 'Count',
                     data: [5, 2, 1, 2] // Update the data values
-                }]
+                }],
+                credits: {
+                    enabled: false
+                }
             });
 
 
@@ -786,7 +873,7 @@ let PBSGapAnalysis = {
                     type: 'pie'
                 },
                 title: {
-                    text: 'CTD Tracking',
+                    text: 'Client Tracking',
                     align: 'center'
                 },
                 tooltip: {
@@ -795,6 +882,13 @@ let PBSGapAnalysis = {
                 accessibility: {
                     point: {
                         valueSuffix: '%'
+                    }
+                },
+                xAxis: {
+                    categories: ['Clients without Tracking', 'Active'],
+                    crosshair: true,
+                    accessibility: {
+                        description: 'Categories'
                     }
                 },
                 plotOptions: {
@@ -806,6 +900,13 @@ let PBSGapAnalysis = {
                             format: '<span style="font-size: 1.2em"><b>{point.name}</b></span><br>' +
                                 '<span style="opacity: 0.6">{point.percentage:.1f} %</span>',
                             connectorColor: 'rgba(128,128,128,0.5)'
+                        },
+                        point: {
+                            events: {
+                                click: function() {
+                                    showClientModal2(this.category, this.y);
+                                }
+                            }
                         }
                     }
                 },
@@ -813,7 +914,10 @@ let PBSGapAnalysis = {
                     name: 'Share',
                     data: statusCountsArray
 
-                }]
+                }],
+                credits: {
+                    enabled: false
+                }
             });
             
             
@@ -1059,9 +1163,44 @@ let PBSGapAnalysis = {
         
 
 
-        function showClientModal(category, count) {
+        function showClientModal(category, count, object) {
             let tableHtml = '<table id="clientTable" ><thead style="color: white;"><tr><th>Patient ID</th><th>Sex</th><th>Enrollment Date</th><th>ART Start Date</th><th>Last Pickup Date</th><th>Phone Number</th><th>Next of Kin Number</th></tr></thead><tbody>';            
-            PBSGapAnalysis[category].forEach(patient => {
+            object[category].forEach(patient => {
+                if (patient != null) {
+                    tableHtml += "<tr><td>" + (patient.PatientUniqueID || '') + "</td><td>" + (patient.Sex || '') + "</td><td>" + (patient.EnrollmentDate || '') + "</td><td>" + (patient.ARTStartDate || '') + "</td><td>" + (patient.LastPickupDate || '') + "</td><td>" + (patient.RegistrationPhoneNo || '') + "</td><td>" + (patient.NextofKinPhoneNo || '') + "</td></tr>";
+                }
+            });
+
+            tableHtml += '</tbody></table>';
+            
+            // Show modal
+            \$('#clientModal .modal-title').text(category + ' (' + count + ' patients)');
+            \$('#clientModal .modal-body').html(tableHtml);
+            
+            // Initialize DataTable
+            \$('#clientTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy',
+                    {
+                        extend: 'excelHtml5',
+                        text: 'Download as Excel',
+                        className: 'btn btn-light'
+                    }
+                ]
+            });
+            
+            \$('#clientModal').modal('show');
+        }
+
+
+
+        function showClientModal2(category, count) {
+            console.log("category in modal2", category);
+            console.log("count in modal2", count);
+            console.log("groupedARTData2 modal2", groupedARTData2);
+            let tableHtml = '<table id="clientTable" ><thead style="color: white;"><tr><th>Patient ID</th><th>Sex</th><th>Enrollment Date</th><th>ART Start Date</th><th>Last Pickup Date</th><th>Phone Number</th><th>Next of Kin Number</th></tr></thead><tbody>';            
+            groupedARTData2[category].forEach(patient => {
                 if (patient != null) {
                     tableHtml += "<tr><td>" + (patient.PatientUniqueID || '') + "</td><td>" + (patient.Sex || '') + "</td><td>" + (patient.EnrollmentDate || '') + "</td><td>" + (patient.ARTStartDate || '') + "</td><td>" + (patient.LastPickupDate || '') + "</td><td>" + (patient.RegistrationPhoneNo || '') + "</td><td>" + (patient.NextofKinPhoneNo || '') + "</td></tr>";
                 }
