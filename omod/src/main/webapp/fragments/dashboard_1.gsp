@@ -434,29 +434,21 @@
 </script>
 <script>
 function dALL() {
-  //alert("download ART linelist")
-  var submission = [], obj;
-  
-    obj = {}
-    obj["name"] = "parameterValues[startDate]";
-    obj["value"] = "2023-06-01";
-    obj["class"] = "hasDatepicker required";
-    submission.push(obj)
-    
-    obj = {}
-    obj["name"] = "parameterValues[endDate]";
-    obj["value"] = "2024-06-01";
-    obj["class"] = "hasDatepicker required";
-    submission.push(obj)
-    
-    obj = {}
-    obj["name"] = "renderingMode";
-    obj["value"] = "org.openmrs.module.reporting.report.renderer.ExcelTemplateRenderer";
-    obj["class"] = "";
-    submission.push(obj)
-
-  \$.post("http://localhost:8090/openmrs/reportingui/runReport.page?reportDefinition=94d55c26-e7d3-4820-b50d-35c6d95e41c6", submission, function() {
-            alert("sent")
-        });
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', '${ui.actionLink("nmrsreports", "ARTParams", "getARTParamsAsExcel")}', true);
+  xhr.responseType = 'blob';
+  xhr.onload = function(e) {
+    if (this.status == 200) {
+      var blob = new Blob([this.response], {type: 'application/vnd.ms-excel'});
+      var downloadUrl = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = downloadUrl;
+      a.download = "artlinelist.xls";
+      document.body.appendChild(a);
+      a.click();
+    }
+  };
+  xhr.send();
 }
+
 </script>
